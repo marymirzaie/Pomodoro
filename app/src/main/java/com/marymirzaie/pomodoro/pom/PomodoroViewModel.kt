@@ -11,6 +11,7 @@ class PomodoroViewModel : ViewModel() {
     val timer: StateFlow<TimerState> = _timer.timerStateFlow
 
     fun startTimer(totalHours: Long, totalMinutes: Long) {
+        //todo write tests for timer
         _timer.startTimer(totalHours, totalMinutes)
     }
 
