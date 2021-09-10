@@ -21,11 +21,15 @@ class TimerJob(private val coroutineScope: CoroutineScope) {
     private val _timerStateFlow = MutableStateFlow(TimerState())
     val timerStateFlow: StateFlow<TimerState> = _timerStateFlow
 
+    private val _progressStateFlow = MutableStateFlow(0f)
+    val progressStateFlow: StateFlow<Float> = _progressStateFlow
+
     private var job: Job? = null
+    private var initialTotalSeconds: Long = 0
 
     companion object {
-        private const val MINUTE_MILLS = 60000L
-        private const val MINUTES_PER_HOUR = 60
+        const val SECOND_MILLS = 1000L
+        const val SECONDS_PER_MINUTE = 60
     }
 
     private fun <DisplayState> initTimer(
@@ -33,36 +37,47 @@ class TimerJob(private val coroutineScope: CoroutineScope) {
         onTick: (Long) -> DisplayState,
     ): Flow<DisplayState> =
         (1 until total - 1).asFlow()
-            .onEach { delay(MINUTE_MILLS) }
+            .onEach { delay(SECOND_MILLS) }
             .onStart { emit(0L) }
             .conflate()
             .transform { currentMinutes: Long ->
                 emit(onTick(currentMinutes))
             }
 
-    private fun calculateHourAndMinutes(min: Long): Pair<Long, Long> {
-        val hour: Long = min / MINUTES_PER_HOUR
-        val remaining = min - hour * MINUTES_PER_HOUR
-        return hour to remaining
+    private fun calculateMinuteAndSeconds(seconds: Long): Pair<Long, Long> {
+        val min: Long = seconds / SECONDS_PER_MINUTE
+        val remaining = seconds - min * SECONDS_PER_MINUTE
+        return min to remaining
     }
 
-    private fun getTotalMinutes(totalHours: Long, totalMinutes: Long): Long {
-        return totalHours * MINUTES_PER_HOUR + totalMinutes
+    private fun getTotalSeconds(totalMinutes: Long, totalSeconds: Long): Long {
+        return totalMinutes * SECONDS_PER_MINUTE + totalSeconds
     }
 
-    fun startTimer(totalHours: Long, totalMinutes: Long) {
-        val totalTime = getTotalMinutes(totalHours, totalMinutes)
+    private fun updateProgress(minutes: Long, seconds: Long): Float {
+        val totalSeconds = seconds + minutes * SECONDS_PER_MINUTE
+        return  totalSeconds.toFloat() * 360 / initialTotalSeconds.toFloat()
+    }
+
+    fun startTimer(totalMinutes: Long, totalSeconds: Long) {
+        val totalTime = getTotalSeconds(totalMinutes, totalSeconds)
+        initialTotalSeconds = totalTime
         if (job == null || job?.isCompleted == true) {
             job = coroutineScope.launch {
-                initTimer(totalTime) { currentMinutes ->
-                    val time = calculateHourAndMinutes(currentMinutes)
-                    TimerState(hours = time.first, minutes = time.second)
+                initTimer(totalTime) { currentSeconds ->
+                    val time = calculateMinuteAndSeconds(currentSeconds)
+                    TimerState(minutes = time.first, seconds = time.second)
                 }.onCompletion {
+                    _progressStateFlow.emit(
+                        updateProgress(minutes = totalMinutes,
+                            seconds = totalSeconds))
                     _timerStateFlow.emit(TimerState(
                         minutes = totalMinutes,
-                        hours = totalHours
+                        seconds = totalSeconds
                     ))
                 }.collect {
+                    _progressStateFlow.emit(updateProgress(minutes = it.minutes,
+                        seconds = it.seconds))
                     _timerStateFlow.emit(it)
                 }
             }
