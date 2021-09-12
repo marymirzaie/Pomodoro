@@ -21,8 +21,8 @@ import com.marymirzaie.pomodoro.pom.entity.TimerState
 //the final view
 fun Pomodoro(timerState: TimerState, progress: Float, modifier: Modifier = Modifier) {
     Box(modifier = modifier
-        .size(300.dp)
-        .padding(16.dp),
+        .size(250.dp)
+        .padding(4.dp),
         contentAlignment = Alignment.Center
     ) {
         PomodoroProgress(progress,
@@ -40,7 +40,7 @@ fun PomodoroProgress(
     progress: Float,
     modifier: Modifier = Modifier,
 ) {
-    val stroke = with(LocalDensity.current) { Stroke(8.dp.toPx()) }
+    val stroke = with(LocalDensity.current) { Stroke(4.dp.toPx()) }
     val color = MaterialTheme.colors.primary
     Canvas(modifier = modifier) {
         val innerRadius = (size.minDimension - stroke.width) / 2

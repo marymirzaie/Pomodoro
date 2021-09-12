@@ -37,7 +37,7 @@ fun PomodoroClock(timerState: TimerState, modifier: Modifier = Modifier) {
         .clip(CircleShape)
         .background(MaterialTheme.colors.secondary)
         .wrapContentSize(align = Alignment.Center)
-        .padding(16.dp)) {
+        .padding(4.dp)) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             //todo read about this
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
