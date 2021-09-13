@@ -1,10 +1,13 @@
-package com.marymirzaie.pomodoro.ui.pomodoro
+package com.marymirzaie.pomodoro.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
@@ -26,18 +29,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.marymirzaie.pomodoro.R
-import com.marymirzaie.pomodoro.pom.entity.TimerState
+import com.marymirzaie.pomodoro.entity.TimerState
 
 @Composable
 //a clock that goes through by time
 fun PomodoroClock(timerState: TimerState, modifier: Modifier = Modifier) {
     Box(modifier = modifier
-        .size(200.dp)
-        .shadow(elevation = 10.dp, shape = CircleShape)
+        .padding(16.dp)
+        .fillMaxSize()
+        .aspectRatio(1f)
+        .shadow(elevation = 12.dp, shape = CircleShape)
         .clip(CircleShape)
-        .background(MaterialTheme.colors.secondary)
-        .wrapContentSize(align = Alignment.Center)
-        .padding(4.dp)) {
+        .background(MaterialTheme.colors.surface, shape = CircleShape)
+        .padding(4.dp),
+        contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             //todo read about this
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
@@ -53,8 +58,8 @@ fun PomodoroClockText(timerState: TimerState, modifier: Modifier = Modifier) {
     Text(
         text = "${timerState.minutes}:${timerState.seconds}",
         style = MaterialTheme.typography.h3,
-        modifier = modifier,
-        color = MaterialTheme.colors.primaryVariant
+        modifier = modifier.wrapContentSize(),
+        color = MaterialTheme.colors.primary
     )
 }
 
@@ -62,14 +67,14 @@ fun PomodoroClockText(timerState: TimerState, modifier: Modifier = Modifier) {
 //consists of 3 pomodoro icons that shows how many times
 fun PomodoroCount(
     modifier: Modifier = Modifier,
-    numberOfPoms: Int = 3,
-    pomsCompleted: Int = 1,
+    numberOfPoms: Int = 4,
+    pomsCompleted: Int = 3,
 ) {
     //todo use tint properly
     Row(modifier = modifier
-        .padding(8.dp)
-        .wrapContentSize(),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        .fillMaxWidth()
+        .padding(8.dp),
+        horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically) {
 
         var comp = pomsCompleted
@@ -82,9 +87,16 @@ fun PomodoroCount(
             Icon(painter = painterResource(id = R.drawable.ic_pomodoro_tomato),
                 tint = tint,
                 contentDescription = null,
-                modifier = Modifier.size(40.dp))
+                modifier = Modifier.size(32.dp))
         }
     }
+}
+
+@Composable
+@Preview
+//a clock that goes through by time
+fun PomodoroClockPreview() {
+    PomodoroClock(timerState = TimerState(3, 15))
 }
 
 @Composable

@@ -2,8 +2,8 @@ package com.marymirzaie.pomodoro.pom
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.marymirzaie.pomodoro.entity.TimerState
 import com.marymirzaie.pomodoro.pom.TimerJob.Companion.SECONDS_PER_MINUTE
-import com.marymirzaie.pomodoro.pom.entity.TimerState
 import kotlinx.coroutines.flow.StateFlow
 
 class PomodoroViewModel : ViewModel() {

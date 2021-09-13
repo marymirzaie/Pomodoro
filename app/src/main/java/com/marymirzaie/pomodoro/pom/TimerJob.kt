@@ -1,6 +1,6 @@
 package com.marymirzaie.pomodoro.pom
 
-import com.marymirzaie.pomodoro.pom.entity.TimerState
+import com.marymirzaie.pomodoro.entity.TimerState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -56,7 +56,7 @@ class TimerJob(private val coroutineScope: CoroutineScope) {
 
     private fun updateProgress(minutes: Long, seconds: Long): Float {
         val totalSeconds = seconds + minutes * SECONDS_PER_MINUTE
-        return  totalSeconds.toFloat() * 360 / initialTotalSeconds.toFloat()
+        return totalSeconds.toFloat() * 360 / initialTotalSeconds.toFloat()
     }
 
     fun startTimer(totalMinutes: Long, totalSeconds: Long) {
@@ -73,7 +73,8 @@ class TimerJob(private val coroutineScope: CoroutineScope) {
                             seconds = totalSeconds))
                     _timerStateFlow.emit(TimerState(
                         minutes = totalMinutes,
-                        seconds = totalSeconds
+                        seconds = totalSeconds,
+                        isCompleted = true
                     ))
                 }.collect {
                     _progressStateFlow.emit(updateProgress(minutes = it.minutes,

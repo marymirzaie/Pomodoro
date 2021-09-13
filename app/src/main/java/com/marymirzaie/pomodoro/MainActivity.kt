@@ -7,7 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.collectAsState
 import com.marymirzaie.pomodoro.pom.PomodoroViewModel
-import com.marymirzaie.pomodoro.ui.pomodoro.Pomodoro
+import com.marymirzaie.pomodoro.screen.PomodoroScreen
 import com.marymirzaie.pomodoro.ui.theme.PomodoroTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                     val timerState = viewModel.timer.collectAsState()
                     val progressState = viewModel.progress.collectAsState()
-                    Pomodoro(timerState = timerState.value, progressState.value)
+                    PomodoroScreen(timerState = timerState.value, progressState.value)
                 }
                 viewModel.startTimer()
             }
