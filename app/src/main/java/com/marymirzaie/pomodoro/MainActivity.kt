@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
             PomodoroTheme {
                 val viewModel = PomodoroViewModel()
                 // A surface container using the 'background' color from the theme
-                viewModel.minutes = 3
+                viewModel.subscribe()
                 Surface(color = MaterialTheme.colors.background) {
                     val timerState = viewModel.timer.collectAsState()
                     val progressState = viewModel.progress.collectAsState()

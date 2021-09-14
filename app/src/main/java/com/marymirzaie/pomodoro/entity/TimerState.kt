@@ -1,7 +1,7 @@
 package com.marymirzaie.pomodoro.entity
 
-data class TimerState(
+class TimerState(
     val minutes: Long = 0,
     val seconds: Long = 0,
-    val isCompleted: Boolean = false,
+    val finish: Boolean = false,
 )

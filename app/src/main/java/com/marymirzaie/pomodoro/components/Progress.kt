@@ -1,4 +1,4 @@
-package com.marymirzaie.pomodoro.ui.pomodoro
+package com.marymirzaie.pomodoro.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.marymirzaie.pomodoro.components.PomodoroClock
 import com.marymirzaie.pomodoro.entity.TimerState
 
 @Composable
@@ -28,9 +27,8 @@ fun Pomodoro(timerState: TimerState, progress: Float, modifier: Modifier = Modif
         .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        PomodoroProgress(progress,
-            modifier.align(Alignment.Center))
         PomodoroClock(timerState)
+        PomodoroProgress(progress, modifier.align(Alignment.Center))
     }
 }
 

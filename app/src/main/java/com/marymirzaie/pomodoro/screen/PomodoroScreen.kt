@@ -13,9 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.marymirzaie.pomodoro.components.Pomodoro
 import com.marymirzaie.pomodoro.components.PomodoroButton
 import com.marymirzaie.pomodoro.entity.TimerState
-import com.marymirzaie.pomodoro.ui.pomodoro.Pomodoro
 
 @Composable
 fun PomodoroScreen(timerState: TimerState, progress: Float, modifier: Modifier = Modifier) {
@@ -25,7 +25,7 @@ fun PomodoroScreen(timerState: TimerState, progress: Float, modifier: Modifier =
             .fillMaxSize()
             .padding(40.dp)) {
         Pomodoro(timerState = timerState,
-            progress,
+            progress = progress,
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f))
