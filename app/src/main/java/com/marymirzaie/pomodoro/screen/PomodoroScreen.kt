@@ -11,14 +11,18 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.marymirzaie.pomodoro.components.Pomodoro
 import com.marymirzaie.pomodoro.components.PomodoroButton
 import com.marymirzaie.pomodoro.entity.TimerState
 
 @Composable
-fun PomodoroScreen(timerState: TimerState, progress: Float, modifier: Modifier = Modifier) {
+fun PomodoroScreen(
+    timerState: TimerState,
+    progress: Float,
+    modifier: Modifier = Modifier,
+    onButtonClick: () -> Unit,
+) {
     Column(horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = modifier
@@ -30,12 +34,6 @@ fun PomodoroScreen(timerState: TimerState, progress: Float, modifier: Modifier =
                 .fillMaxWidth()
                 .aspectRatio(1f))
         Spacer(modifier = Modifier.size(32.dp))
-        PomodoroButton()
+        PomodoroButton(onClick = onButtonClick)
     }
-}
-
-@Preview
-@Composable
-fun PomodoroScreenPreview() {
-    PomodoroScreen(TimerState(3, 15), 200f)
 }

@@ -37,7 +37,7 @@ fun PomodoroProgress(
     progress: Float,
     modifier: Modifier = Modifier,
 ) {
-    val stroke = with(LocalDensity.current) { Stroke(16.dp.toPx()) }
+    val stroke = with(LocalDensity.current) { Stroke(10.dp.toPx()) }
     val color = MaterialTheme.colors.primary
     Canvas(modifier = modifier
         .fillMaxSize()

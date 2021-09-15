@@ -22,10 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.marymirzaie.pomodoro.R
 
 @Composable
-fun PomodoroControl() {
-}
-
-@Composable
 fun PomodoroButton(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
     IconButton(modifier = modifier
         .wrapContentSize(align = Alignment.Center)

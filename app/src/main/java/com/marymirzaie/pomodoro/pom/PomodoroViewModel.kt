@@ -21,6 +21,7 @@ class PomodoroViewModel : ViewModel() {
     private var pomTimerState = TimerState(3, 0)
 
     private var countDownTimer: CountDownTimer? = null
+    private var isPaused = true
 
     companion object {
         const val SECOND_MILLS = 1000L
@@ -29,6 +30,7 @@ class PomodoroViewModel : ViewModel() {
 
     fun subscribe() {
         totalSeconds = getPomDuration() * SECONDS_PER_MINUTE
+        lastTimerState = pomTimerState
         //todo set pom timer
     }
 
@@ -43,8 +45,12 @@ class PomodoroViewModel : ViewModel() {
         return min to remaining / SECOND_MILLS
     }
 
-    fun startTimer() {
-        countDownTimer = object : CountDownTimer(totalSeconds, SECOND_MILLS) {
+    private fun getLastTimerSeconds(): Long {
+        return lastTimerState.minutes * SECONDS_PER_MINUTE + lastTimerState.seconds * SECOND_MILLS
+    }
+
+    private fun startTimer() {
+        countDownTimer = object : CountDownTimer(getLastTimerSeconds(), SECOND_MILLS) {
             override fun onTick(millisUntilFinished: Long) {
                 val time = calculateMinuteAndSeconds(millisUntilFinished)
                 updateTimerSate(TimerState(minutes = time.first, seconds = time.second))
@@ -56,11 +62,20 @@ class PomodoroViewModel : ViewModel() {
         }.start()
     }
 
-    fun pauseTimer() {
+    private fun pauseTimer() {
         val state = timer.value
         lastTimerState = TimerState(minutes = state.minutes, seconds = state.seconds)
         countDownTimer?.cancel()
         countDownTimer = null
+    }
+
+    fun onButtonClicked() {
+        if (isPaused) {
+            startTimer()
+        } else {
+            pauseTimer()
+        }
+        isPaused = !isPaused
     }
 
     private fun updateProgress(minutes: Long, seconds: Long): Float {

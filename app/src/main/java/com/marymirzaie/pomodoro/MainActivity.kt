@@ -21,9 +21,10 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                     val timerState = viewModel.timer.collectAsState()
                     val progressState = viewModel.progress.collectAsState()
-                    PomodoroScreen(timerState = timerState.value, progressState.value)
+                    PomodoroScreen(timerState = timerState.value, progressState.value) {
+                        viewModel.onButtonClicked()
+                    }
                 }
-                viewModel.startTimer()
             }
         }
     }
