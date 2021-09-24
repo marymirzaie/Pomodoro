@@ -1,4 +1,4 @@
-package com.marymirzaie.pomodoro.ui.theme
+package com.mmb.ui_compose.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

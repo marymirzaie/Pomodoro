@@ -2,11 +2,9 @@ package com.marymirzaie.pomodoro.pom
 
 import android.os.CountDownTimer
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.marymirzaie.pomodoro.entity.TimerState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 class PomodoroViewModel : ViewModel() {
 
@@ -85,9 +83,9 @@ class PomodoroViewModel : ViewModel() {
     }
 
     private fun updateTimerSate(state: TimerState) {
-        viewModelScope.launch {
-            _timer.emit(state)
-            _progress.emit(updateProgress(state.minutes, state.seconds))
-        }
+        //        viewModelScope.launch {
+        //            _timer.emit(state)
+        //            _progress.emit(updateProgress(state.minutes, state.seconds))
+        //        }
     }
 }

@@ -1,4 +1,4 @@
-package com.marymirzaie.pomodoro.ui.theme
+package com.mmb.ui_compose.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.marymirzaie.pomodoro.R
+import com.mmb.ui_compose.R
 
 // Set of Material typography styles to start with
 private val Montserrat = FontFamily(
