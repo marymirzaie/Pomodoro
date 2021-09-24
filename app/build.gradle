@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk 31
     buildToolsVersion "31.0.0"
 
     defaultConfig {
         applicationId "com.marymirzaie.pomodoro"
         minSdk 21
-        targetSdk 30
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
