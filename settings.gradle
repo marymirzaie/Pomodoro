@@ -8,3 +8,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "pomodoro"
 include ':app'
+include ':common'
+include ':comoon:ui-compose'
+include ':feature'
