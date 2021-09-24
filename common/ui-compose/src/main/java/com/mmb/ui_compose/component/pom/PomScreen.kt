@@ -11,39 +11,37 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.mmb.ui_compose.Layout
 import com.mmb.ui_compose.component.pom.entity.ControlState
+import com.mmb.ui_compose.component.pom.entity.PomodoroScreenEntity
 
 @Composable
 fun PomScreen(
-    text: String,
-    numberOfPoms: Int,
-    pomsCompleted: Int,
-    state: ControlState,
+    entity: PomodoroScreenEntity,
     modifier: Modifier = Modifier,
-    onControlButtonClicked: () -> Unit,
 ) {
     Column(modifier = modifier.wrapContentSize(),
         horizontalAlignment = Alignment.CenterHorizontally) {
         PomodoroClock(
-            text = text,
-            numberOfPoms = numberOfPoms,
-            pomsCompleted = pomsCompleted,
+            text = entity.text,
+            numberOfPoms = entity.numberOfPoms,
+            pomsCompleted = entity.pomsCompleted,
         )
         Spacer(modifier = Modifier
             .height(Layout.bodyMargin)
             .fillMaxWidth())
-        ControlButton(state = state, onClick = onControlButtonClicked)
+        ControlButton(state = entity.state, onClick = entity.onControlButtonClicked)
     }
 }
 
 @Preview
 @Composable
 fun PomScreenPreview() {
-    PomScreen(
+    PomScreen(PomodoroScreenEntity(
         "12:00",
         3,
         2,
         state = ControlState.Running
     ) {}
+    )
 }
 
 
