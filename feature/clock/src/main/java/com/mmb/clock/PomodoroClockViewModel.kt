@@ -4,10 +4,9 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.mmb.clock.TimerState.Companion.SECOND_MILLS
+import com.mmb.ui_compose.component.pom.entity.ControlState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,16 +18,15 @@ class PomodoroClockViewModel @Inject constructor() : ViewModel() {
     private val _timer: MutableLiveData<TimerState> = MutableLiveData()
     val timer: LiveData<TimerState> = _timer
 
-    private var currentTimerState = TimerState(0, 0)
+    private val _buttonState: MutableLiveData<ControlState> = MutableLiveData()
+    val buttonState: LiveData<ControlState> = _buttonState
+
     private val sessionTimerState = TimerState(3, 0)
+    private var currentTimerState = sessionTimerState
 
     private var countDownTimer: CountDownTimer? = null
 
-    fun subscribe() {
-        currentTimerState = sessionTimerState
-    }
-
-    fun startTimer() {
+    private fun startTimer() {
         if (countDownTimer != null) return
         countDownTimer = object : CountDownTimer(currentTimerState.convertToSeconds(),
             SECOND_MILLS
@@ -43,7 +41,7 @@ class PomodoroClockViewModel @Inject constructor() : ViewModel() {
         }.start()
     }
 
-    fun pauseTimer() {
+    private fun pauseTimer() {
         _timer.value?.apply {
             currentTimerState = TimerState(
                 minutes = minutes,
@@ -56,8 +54,10 @@ class PomodoroClockViewModel @Inject constructor() : ViewModel() {
 
     fun onButtonClicked() {
         if (countDownTimer == null) {
+            _buttonState.value = ControlState.Running
             startTimer()
         } else {
+            _buttonState.value = ControlState.Paused
             pauseTimer()
         }
     }
@@ -69,9 +69,7 @@ class PomodoroClockViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun updateTimerSate(state: TimerState) {
-        viewModelScope.launch {
-            _timer.value = state
-            _progress.value = updateProgress(state)
-        }
+        _timer.value = state
+        _progress.value = updateProgress(state)
     }
 }

@@ -1,7 +1,7 @@
 package com.mmb.ui_compose.component.pom
 
+import androidx.compose.foundation.clickable
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PauseCircle
 import androidx.compose.material.icons.filled.PlayCircle
@@ -28,12 +28,11 @@ fun ControlButton(
     } else {
         stringResource(id = R.string.resume_timer_description)
     }
-    IconButton(onClick = onClick, modifier = modifier) {
-        Icon(
-            imageVector = vectorImage,
-            contentDescription = contentDescription
-        )
-    }
+    Icon(
+        imageVector = vectorImage,
+        contentDescription = contentDescription,
+        modifier = modifier.clickable { onClick.invoke() },
+    )
 }
 
 @Preview

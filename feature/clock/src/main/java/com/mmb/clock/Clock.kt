@@ -1,15 +1,18 @@
 package com.mmb.clock
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mmb.ui_compose.Layout
 import com.mmb.ui_compose.component.pom.ControlButton
@@ -31,26 +34,16 @@ internal fun Clock(
     viewModel: PomodoroClockViewModel,
 ) {
     val timerState = viewModel.timer.observeAsState()
-    val state = if (timerState.value == null || timerState.value?.finish == true) {
-        ControlState.Paused
-    } else {
-        ControlState.Running
-    }
+    val state = viewModel.buttonState.observeAsState()
     PomScreen(
         PomodoroScreenEntity(
             text = timerState.value?.toString() ?: "",
             numberOfPoms = 3,
             pomsCompleted = 2,
-            state = state
-        ) {
-            if (state == ControlState.Running) {
-                viewModel.pauseTimer()
-            } else {
-                viewModel.startTimer()
-            }
-        }
+            state = state.value ?: ControlState.Paused,
+            onControlButtonClicked = viewModel::onButtonClicked
+        )
     )
-    viewModel.subscribe()
 }
 
 @Composable
@@ -58,7 +51,8 @@ fun PomScreen(
     entity: PomodoroScreenEntity,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier.wrapContentSize(),
+    Column(modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
         PomodoroClock(
             text = entity.text,
@@ -68,7 +62,11 @@ fun PomScreen(
         Spacer(modifier = Modifier
             .height(Layout.bodyMargin)
             .fillMaxWidth())
-        ControlButton(state = entity.state, onClick = entity.onControlButtonClicked)
+        ControlButton(
+            state = entity.state,
+            onClick = entity.onControlButtonClicked,
+            modifier = Modifier.size(50.dp)
+        )
     }
 }
 

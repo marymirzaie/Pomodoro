@@ -16,6 +16,6 @@ data class TimerState(
     }
 
     override fun toString(): String {
-        return "$minutes : $seconds"
+        return "%02d".format(minutes) + ":" + "%02d".format(seconds)
     }
 }
