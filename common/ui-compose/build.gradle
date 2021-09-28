@@ -48,7 +48,6 @@ dependencies {
     implementation "androidx.compose.material:material:$library.compose"
     implementation "androidx.compose.material:material-icons-extended:$library.compose"
     implementation "androidx.compose.ui:ui-tooling-preview:$library.compose"
-    implementation "androidx.compose.material:material:$library.compose"
     debugImplementation "androidx.compose.ui:ui-tooling:$library.compose"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$library.compose"
 }

@@ -8,9 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.mmb.clock.TimerState.Companion.SECOND_MILLS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class PomodoroClockViewModel : ViewModel() {
+class PomodoroClockViewModel @Inject constructor() : ViewModel() {
 
     private val _progress: MutableLiveData<Float> = MutableLiveData()
     val progress: LiveData<Float> = _progress
@@ -30,7 +31,8 @@ class PomodoroClockViewModel : ViewModel() {
     fun startTimer() {
         if (countDownTimer != null) return
         countDownTimer = object : CountDownTimer(currentTimerState.convertToSeconds(),
-            SECOND_MILLS) {
+            SECOND_MILLS
+        ) {
             override fun onTick(millisUntilFinished: Long) {
                 updateTimerSate(millisUntilFinished.convertToTimerState())
             }
