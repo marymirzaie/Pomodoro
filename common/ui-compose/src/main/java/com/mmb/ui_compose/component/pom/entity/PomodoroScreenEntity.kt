@@ -4,6 +4,7 @@ data class PomodoroScreenEntity(
     val text: String,
     val numberOfPoms: Int,
     val pomsCompleted: Int,
+    val progress: Float,
     val state: ControlState,
     val onControlButtonClicked: () -> Unit,
 )

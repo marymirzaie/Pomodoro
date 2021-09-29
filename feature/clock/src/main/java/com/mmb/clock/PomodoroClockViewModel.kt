@@ -26,6 +26,10 @@ class PomodoroClockViewModel @Inject constructor() : ViewModel() {
 
     private var countDownTimer: CountDownTimer? = null
 
+    init {
+        updateTimerSate(currentTimerState)
+    }
+
     private fun startTimer() {
         if (countDownTimer != null) return
         countDownTimer = object : CountDownTimer(currentTimerState.convertToSeconds(),

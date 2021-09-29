@@ -1,6 +1,7 @@
 package com.mmb.clock
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,12 +36,14 @@ internal fun Clock(
 ) {
     val timerState = viewModel.timer.observeAsState()
     val state = viewModel.buttonState.observeAsState()
+    val progress = viewModel.progress.observeAsState()
     PomScreen(
         PomodoroScreenEntity(
             text = timerState.value?.toString() ?: "",
             numberOfPoms = 3,
             pomsCompleted = 2,
             state = state.value ?: ControlState.Paused,
+            progress = progress.value ?: 0f,
             onControlButtonClicked = viewModel::onButtonClicked
         )
     )
@@ -54,11 +57,15 @@ fun PomScreen(
     Column(modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        PomodoroClock(
-            text = entity.text,
-            numberOfPoms = entity.numberOfPoms,
-            pomsCompleted = entity.pomsCompleted,
-        )
+        Box {
+            PomodoroClock(
+                text = entity.text,
+                numberOfPoms = entity.numberOfPoms,
+                pomsCompleted = entity.pomsCompleted,
+                progress = entity.progress
+            )
+
+        }
         Spacer(modifier = Modifier
             .height(Layout.bodyMargin)
             .fillMaxWidth())
@@ -77,7 +84,8 @@ fun PomScreenPreview() {
         "12:00",
         3,
         2,
-        state = ControlState.Running
+        state = ControlState.Running,
+        progress = 100f
     ) {}
     )
 }
