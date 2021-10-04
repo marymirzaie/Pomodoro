@@ -49,7 +49,7 @@ fun PomodoroAppNavigation() {
     }
 
     Scaffold(bottomBar = {
-        BottomNavigation(
+        BottomNav(
             allScreens = Screen.allScreens(),
             onTabSelected = onTabSelected,
             currentScreen = Screen.fromRoute(backStackEntry.value?.destination?.route)
