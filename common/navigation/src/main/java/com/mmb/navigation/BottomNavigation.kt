@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.mmb.ui_compose.AppBarAlphas
+import com.mmb.ui_compose.Alphas
 
 @Composable
 internal fun BottomNav(
@@ -21,7 +21,7 @@ internal fun BottomNav(
     BottomNavigation(
         contentColor = contentColorFor(MaterialTheme.colors.surface),
         modifier = modifier,
-        backgroundColor = MaterialTheme.colors.surface.copy(alpha = AppBarAlphas.translucentBarAlpha()),
+        backgroundColor = MaterialTheme.colors.surface.copy(alpha = Alphas.translucentBarAlpha()),
     ) {
         allScreens.forEach {
             val selected = currentScreen == it

@@ -3,7 +3,7 @@ package com.mmb.ui_compose
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 
-object AppBarAlphas {
+object Alphas {
     @Composable
     fun translucentBarAlpha(): Float = when {
         // We use a more opaque alpha in light theme

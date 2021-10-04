@@ -19,6 +19,9 @@ class SettingViewModel @Inject constructor(
     val settingViewState: Flow<SettingViewState> = repository.getSettings()
         .map { mapToSettingsViewState(it) }
 
+    val themeViewState: Flow<String> = settingViewState
+        .map { it.theme }
+
     fun setSession(value: Int) {
         viewModelScope.launch {
             repository.updateSessionDuration(value)
