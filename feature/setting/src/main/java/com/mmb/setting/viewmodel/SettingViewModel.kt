@@ -38,11 +38,22 @@ class SettingViewModel @Inject constructor(
 
     }
 
+    fun getAllThemes(): List<String> {
+        return repository.getThemes()
+    }
+
+    fun setTheme(theme: String) {
+        viewModelScope.launch {
+            repository.updateTheme(theme)
+        }
+    }
+
     private fun mapToSettingsViewState(settingProto: Setting): SettingViewState {
         val theme = when (settingProto.theme) {
-            Setting.THEME.SYSTEM_DEFAULT -> SettingViewState.THEME.SYSTEM_DEFAULT
-            Setting.THEME.DARK -> SettingViewState.THEME.DARK
-            else -> SettingViewState.THEME.LIGHT
+            Setting.THEME.SYSTEM_DEFAULT -> SettingRepository.SYSTEM_DEFAULT_THEME
+            Setting.THEME.DARK -> SettingRepository.DARK_THEME
+            Setting.THEME.LIGHT -> SettingRepository.LIGHT_THEME
+            else -> SettingRepository.SYSTEM_DEFAULT_THEME
         }
         return SettingViewState(
             settingProto.sessionDuration.toString(),

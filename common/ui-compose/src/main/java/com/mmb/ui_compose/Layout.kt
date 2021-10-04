@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.sp
 
 object Layout {
 
-    val normalFontSize = 14.sp
+    val normalFontSize = 16.sp
 
     val largeMargin: Dp
         @Composable get() = when (LocalConfiguration.current.screenWidthDp) {

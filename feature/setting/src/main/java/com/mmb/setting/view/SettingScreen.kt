@@ -7,6 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mmb.setting.entity.SettingViewState
 import com.mmb.setting.viewmodel.SettingViewModel
 import com.mmb.ui_compose.component.base.NumberTextField
+import com.mmb.ui_compose.component.dialogue.RadioDialogueRow
 
 @Composable
 fun Setting() {
@@ -19,6 +20,14 @@ internal fun SettingScreen(
 ) {
     Column {
         val setting = viewModel.settingViewState.collectAsState(SettingViewState())
+        RadioDialogueRow(
+            "Theme",
+            setting.value.theme,
+            viewModel.getAllThemes(),
+            {
+                viewModel.setTheme(it)
+            }
+        )
         NumberTextField(
             label = "session duration",
             text = setting.value.sessionDuration
