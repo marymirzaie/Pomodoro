@@ -21,21 +21,18 @@ class SettingViewModel @Inject constructor(
         .map { it.theme }
 
     fun setSession(value: String) {
-        if (value.isEmpty()) return
         viewModelScope.launch {
             repository.updateSessionDuration(value.toInt())
         }
     }
 
     fun setShortBreak(value: String) {
-        if (value.isEmpty()) return
         viewModelScope.launch {
             repository.updateShortBreakDuration(value.toInt())
         }
     }
 
     fun setLongBreak(value: String) {
-        if (value.isEmpty()) return
         viewModelScope.launch {
             repository.updateLongBreakDuration(value.toInt())
         }

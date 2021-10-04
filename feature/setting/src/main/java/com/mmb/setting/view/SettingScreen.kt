@@ -33,21 +33,27 @@ internal fun SettingScreen(
             label = "session duration",
             text = setting.value.sessionDuration
         ) {
-            viewModel.setSession(it)
+            if (it.isNotEmpty()) {
+                viewModel.setSession(it)
+            }
         }
 
         NumberTextRow(
             label = "short break duration",
             text = setting.value.shortBreakDuration
         ) {
-            viewModel.setShortBreak(it)
+            if (it.isNotEmpty()) {
+                viewModel.setShortBreak(it)
+            }
         }
 
         NumberTextRow(
             label = "long break duration",
             text = setting.value.longBreakDuration
         ) {
-            viewModel.setLongBreak(it)
+            if (it.isNotEmpty()) {
+                viewModel.setLongBreak(it)
+            }
         }
 
         RadioDialogueRow(
