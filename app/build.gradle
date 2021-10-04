@@ -74,6 +74,7 @@ dependencies {
     implementation project(":common:navigation")
     implementation project(":common:core")
     api project(":feature:setting")
+    api project(":feature:clock")
 }
 
 kapt {

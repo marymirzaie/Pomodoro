@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mmb.setting.datasource.SettingRepository
 import com.mmb.setting.entity.SettingViewState
-import com.mmb.setting_proto.Setting
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -17,7 +16,6 @@ class SettingViewModel @Inject constructor(
 ) : ViewModel() {
 
     val settingViewState: Flow<SettingViewState> = repository.getSettings()
-        .map { mapToSettingsViewState(it) }
 
     val themeViewState: Flow<String> = settingViewState
         .map { it.theme }
@@ -49,21 +47,5 @@ class SettingViewModel @Inject constructor(
         viewModelScope.launch {
             repository.updateTheme(theme)
         }
-    }
-
-    private fun mapToSettingsViewState(settingProto: Setting): SettingViewState {
-        val theme = when (settingProto.theme) {
-            Setting.THEME.SYSTEM_DEFAULT -> SettingRepository.SYSTEM_DEFAULT_THEME
-            Setting.THEME.DARK -> SettingRepository.DARK_THEME
-            Setting.THEME.LIGHT -> SettingRepository.LIGHT_THEME
-            else -> SettingRepository.SYSTEM_DEFAULT_THEME
-        }
-        return SettingViewState(
-            settingProto.sessionDuration.toString(),
-            settingProto.shortBreakDuration.toString(),
-            settingProto.longBreakDuration.toString(),
-            settingProto.enableSounds,
-            theme
-        )
     }
 }

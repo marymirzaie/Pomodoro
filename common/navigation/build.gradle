@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -48,12 +49,10 @@ dependencies {
 
     //compose
     implementation "androidx.compose.ui:ui:$library.compose"
-    implementation "androidx.navigation:navigation-compose:$library.compose"
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha09"
     implementation "androidx.compose.material:material:$library.compose"
     implementation "androidx.compose.material:material-icons-extended:$library.compose"
     implementation "androidx.compose.ui:ui-tooling-preview:$library.compose"
-    implementation "androidx.navigation:navigation-compose:$library.composeNavigation"
     implementation project(":common:ui-compose")
     implementation project(":feature:clock")
-    implementation project(":feature:setting")
 }

@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.mmb.ui_compose.Layout
 import com.mmb.ui_compose.component.pom.ControlButton
 import com.mmb.ui_compose.component.pom.PomodoroClock
@@ -22,18 +22,16 @@ import com.mmb.ui_compose.component.pom.entity.ControlState
 import com.mmb.ui_compose.component.pom.entity.PomodoroScreenEntity
 
 @Composable
-fun Clock(
-    navigateUp: () -> Unit,
-) {
-    Clock(
-        viewModel = viewModel()
-    )
+fun Clock(navigateUp: () -> Unit) {
+    val viewModel = hiltViewModel<PomodoroClockViewModel>()
+    Clock(viewModel = viewModel)
 }
 
 @Composable
 internal fun Clock(
     viewModel: PomodoroClockViewModel,
 ) {
+
     val timerState = viewModel.timer.observeAsState()
     val state = viewModel.buttonState.observeAsState()
     val progress = viewModel.progress.observeAsState()
@@ -45,7 +43,7 @@ internal fun Clock(
             state = state.value ?: ControlState.Paused,
             progress = progress.value ?: 0f,
             onControlButtonClicked = viewModel::onButtonClicked
-        )
+        ),
     )
 }
 
