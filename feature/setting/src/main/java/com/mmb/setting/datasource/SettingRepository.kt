@@ -16,11 +16,32 @@ class SettingRepository @Inject constructor(
     private val dataStore: DataStore<Setting>,
 ) {
 
-    suspend fun updateSessionDuration(duration: Int) {
+    private suspend fun updateData(
+        transform: (Setting.Builder) -> Setting.Builder,
+    ) {
         withContext(context = dispatcher.iO) {
             dataStore.updateData { preferences ->
-                preferences.toBuilder().setSessionDuration(duration).build()
+                val builder = preferences.toBuilder()
+                transform.invoke(builder).build()
             }
+        }
+    }
+
+    suspend fun updateSessionDuration(duration: Int) {
+        updateData {
+            it.setSessionDuration(duration)
+        }
+    }
+
+    suspend fun updateShortBreakDuration(duration: Int) {
+        updateData {
+            it.setShortBreakDuration(duration)
+        }
+    }
+
+    suspend fun updateLongBreakDuration(duration: Int) {
+        updateData {
+            it.setLongBreakDuration(duration)
         }
     }
 
@@ -31,10 +52,14 @@ class SettingRepository @Inject constructor(
             SYSTEM_DEFAULT_THEME -> Setting.THEME.SYSTEM_DEFAULT
             else -> Setting.THEME.SYSTEM_DEFAULT
         }
-        withContext(context = dispatcher.iO) {
-            dataStore.updateData { preferences ->
-                preferences.toBuilder().setTheme(convertedTheme).build()
-            }
+        updateData {
+            it.setTheme(convertedTheme)
+        }
+    }
+
+    suspend fun enableSounds(enable: Boolean) {
+        updateData {
+            it.setEnableSounds(enable)
         }
     }
 

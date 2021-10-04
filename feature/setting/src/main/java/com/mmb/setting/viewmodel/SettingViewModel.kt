@@ -20,23 +20,32 @@ class SettingViewModel @Inject constructor(
     val themeViewState: Flow<String> = settingViewState
         .map { it.theme }
 
-    fun setSession(value: Int) {
+    fun setSession(value: String) {
+        if (value.isEmpty()) return
         viewModelScope.launch {
-            repository.updateSessionDuration(value)
+            repository.updateSessionDuration(value.toInt())
         }
     }
 
-    fun setShortBreak(value: Int) {
+    fun setShortBreak(value: String) {
+        if (value.isEmpty()) return
         viewModelScope.launch {
+            repository.updateShortBreakDuration(value.toInt())
         }
     }
 
-    fun setLongBreak(value: Int) {
+    fun setLongBreak(value: String) {
+        if (value.isEmpty()) return
+        viewModelScope.launch {
+            repository.updateLongBreakDuration(value.toInt())
+        }
 
     }
 
-    fun enableSoundsWhenDone(enable: Boolean) {
-
+    fun enableSounds(enable: Boolean) {
+        viewModelScope.launch {
+            repository.enableSounds(enable)
+        }
     }
 
     fun getAllThemes(): List<String> {

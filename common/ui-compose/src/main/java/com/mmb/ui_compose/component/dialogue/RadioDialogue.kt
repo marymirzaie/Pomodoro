@@ -22,7 +22,7 @@ import androidx.compose.ui.window.Dialog
 import com.mmb.ui_compose.Layout
 
 @Composable
-fun RadioTextButton(
+internal fun RadioTextButton(
     title: String,
     isSelected: Boolean,
     modifier: Modifier = Modifier,
@@ -44,7 +44,7 @@ fun RadioTextButton(
 }
 
 @Composable
-fun RadioDialogue(
+internal fun RadioDialogue(
     title: String,
     contentList: List<String>,
     selectedItem: String,
@@ -88,7 +88,7 @@ fun RadioDialogueRow(
             .clickable {
                 setExpanded(!isExpanded)
             }
-            .padding(vertical = Layout.bodyMargin, horizontal = Layout.gutter)
+            .padding(vertical = Layout.gutter)
     )
 
     if (isExpanded) {
@@ -99,6 +99,7 @@ fun RadioDialogueRow(
             onDismissRequest = { setExpanded(false) }
         ) { item ->
             onItemSelected(item)
+            setExpanded(false)
         }
     }
     Divider()
