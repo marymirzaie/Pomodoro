@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mmb.clock.Clock
+import com.mmb.setting.view.Setting
 
 internal sealed class Screen(val route: String, val icon: ImageVector) {
     fun createRoute(root: Screen) = "${root.route}/$route"
@@ -87,7 +88,7 @@ private fun NavGraphBuilder.addClockScreen(
 
 private fun NavGraphBuilder.addSettingsScreen() {
     composable(route = Screen.Settings.route) {
-
+        Setting()
     }
 }
 

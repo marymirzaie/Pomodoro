@@ -55,4 +55,5 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:$library.composeNavigation"
     implementation project(":common:ui-compose")
     implementation project(":feature:clock")
+    implementation project(":feature:setting")
 }

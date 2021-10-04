@@ -5,12 +5,18 @@ dependencyResolutionManagement {
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
     }
+    enableFeaturePreview("VERSION_CATALOGS")
+    versionCatalogs {
+        create("libs") {
+            from(files("./gradle/wrapper/libs.versions.toml"))
+        }
+    }
 }
 rootProject.name = "pomodoro"
 include ':app'
 include ':common'
-include ':comoon:ui-compose'
 include ':feature'
 include ':common:ui-compose'
 include ':feature:clock'
 include ':common:navigation'
+include ':feature:setting'

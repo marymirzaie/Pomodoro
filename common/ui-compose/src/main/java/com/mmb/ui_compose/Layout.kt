@@ -4,8 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object Layout {
+
+    val normalFontSize = 14.sp
 
     val largeMargin: Dp
         @Composable get() = when (LocalConfiguration.current.screenWidthDp) {

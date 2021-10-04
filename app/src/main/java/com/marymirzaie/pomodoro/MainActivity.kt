@@ -14,7 +14,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             PomodoroTheme {
                 PomodoroAppNavigation()
-
             }
         }
     }
