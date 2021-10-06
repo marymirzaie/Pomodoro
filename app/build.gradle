@@ -72,6 +72,9 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$library.hilt"
     implementation project(":common:ui-compose")
     implementation project(":common:navigation")
+    implementation project(":common:core")
+    api project(":feature:setting")
+    api project(":feature:clock")
 }
 
 kapt {

@@ -4,13 +4,23 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mmb.clock.TimerState.Companion.SECOND_MILLS
+import com.mmb.setting.datasource.SettingRepository
+import com.mmb.setting.entity.SettingViewState
 import com.mmb.ui_compose.component.pom.entity.ControlState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PomodoroClockViewModel @Inject constructor() : ViewModel() {
+class PomodoroClockViewModel @Inject constructor(
+    private val repository: SettingRepository,
+) : ViewModel() {
+
+    val settingViewState: Flow<SettingViewState> = repository.getSettings()
 
     private val _progress: MutableLiveData<Float> = MutableLiveData()
     val progress: LiveData<Float> = _progress
@@ -21,13 +31,19 @@ class PomodoroClockViewModel @Inject constructor() : ViewModel() {
     private val _buttonState: MutableLiveData<ControlState> = MutableLiveData()
     val buttonState: LiveData<ControlState> = _buttonState
 
-    private val sessionTimerState = TimerState(3, 0)
+    private var sessionTimerState = TimerState()
     private var currentTimerState = sessionTimerState
 
     private var countDownTimer: CountDownTimer? = null
 
     init {
-        updateTimerSate(currentTimerState)
+        viewModelScope.launch {
+            settingViewState.collect {
+                sessionTimerState = TimerState(it.sessionDuration.toLong(), 0)
+                currentTimerState = sessionTimerState
+                updateTimerSate(currentTimerState)
+            }
+        }
     }
 
     private fun startTimer() {

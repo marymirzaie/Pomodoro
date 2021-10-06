@@ -1,0 +1,79 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
+    id "com.google.protobuf" version "0.8.12"
+}
+
+android {
+    compileSdk build.compileSdkVersion
+
+    defaultConfig {
+        minSdk build.minSdkVersion
+        targetSdk build.targetSdkVersion
+        versionCode app.versionCode
+        versionName app.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion library.compose
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.10.0"
+    }
+
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option 'lite'
+                }
+            }
+        }
+
+    }
+}
+
+dependencies {
+    implementation project(":common:ui-compose")
+    implementation project(":common:core")
+
+    implementation libs.appCompat
+    implementation libs.ktx.core
+
+    implementation libs.compose.core
+    implementation libs.compose.material
+    implementation libs.compose.lifecycle
+    implementation libs.compose.hilt.navigation
+
+    implementation libs.datastore.androidx
+    implementation libs.datastore.core
+
+    implementation libs.protobuf
+
+    implementation libs.hilt.core
+    kapt libs.hilt.compiler
+}
