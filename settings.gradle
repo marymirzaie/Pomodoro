@@ -16,6 +16,7 @@ rootProject.name = "pomodoro"
 include ':app'
 include ':common'
 include ':feature'
+include ':common:core'
 include ':common:ui-compose'
 include ':feature:clock'
 include ':common:navigation'
