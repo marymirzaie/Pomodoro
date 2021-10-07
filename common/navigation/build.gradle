@@ -53,6 +53,8 @@ dependencies {
     implementation "androidx.compose.material:material:$library.compose"
     implementation "androidx.compose.material:material-icons-extended:$library.compose"
     implementation "androidx.compose.ui:ui-tooling-preview:$library.compose"
+
     implementation project(":common:ui-compose")
     implementation project(":feature:clock")
+    implementation project(":feature:history")
 }

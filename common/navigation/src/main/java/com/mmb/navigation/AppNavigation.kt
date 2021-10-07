@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mmb.clock.Clock
+import com.mmb.history.view.History
 import com.mmb.setting.datasource.SettingRepository
 import com.mmb.setting.entity.SettingViewState
 import com.mmb.setting.view.Setting
@@ -30,20 +31,20 @@ internal sealed class Screen(val route: String, val icon: ImageVector) {
 
     object Clock : Screen("clock", Icons.Filled.Timer)
     object Settings : Screen("settings", Icons.Filled.Settings)
-    object Profile : Screen("profile", Icons.Filled.PersonOutline)
+    object History : Screen("history", Icons.Filled.PersonOutline)
 
     companion object {
         fun fromRoute(route: String?): Screen {
             return when (route?.substringBefore("/")) {
                 Clock.route -> Clock
                 Settings.route -> Settings
-                Profile.route -> Profile
+                History.route -> History
                 null -> Clock
                 else -> throw IllegalArgumentException("Route $route is not recognized.")
             }
         }
 
-        fun allScreens() = listOf(Settings, Clock, Profile)
+        fun allScreens() = listOf(Settings, Clock, History)
     }
 }
 
@@ -85,7 +86,7 @@ internal fun AppNavigation(
         startDestination = Screen.Clock.route,
         modifier = modifier
     ) {
-        addProfileScreen()
+        addHistoryScreen()
         addClockScreen(navController)
         addSettingsScreen()
     }
@@ -107,8 +108,8 @@ private fun NavGraphBuilder.addSettingsScreen() {
     }
 }
 
-private fun NavGraphBuilder.addProfileScreen() {
-    composable(route = Screen.Profile.route) {
-
+private fun NavGraphBuilder.addHistoryScreen() {
+    composable(route = Screen.History.route) {
+        History()
     }
 }

@@ -19,6 +19,8 @@ ktx-core = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 
 compose-core = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-lifecycle = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "composeHilt" }
 compose-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "composeNavigation" }
 
