@@ -10,6 +10,7 @@ coreKtx = "1.6.0"
 protobuf = "3.12.0"
 dataStore = "1.0.0"
 coroutine = "1.5.2"
+lifecyleRuntime = "2.4.0"
 
 #[plugins]
 #spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
@@ -18,11 +19,13 @@ coroutine = "1.5.2"
 [libraries]
 appCompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
 ktx-core = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecyleRuntime" }
 
 compose-core = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
 compose-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compse-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "compose" }
 
 compose-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "composeHiltNavigation" }
 compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "compseNavigation" }
