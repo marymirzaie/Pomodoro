@@ -54,4 +54,4 @@ coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", versi
 
 
 [bundles]
-room = ["room-common", "room-compiler", "room-ktx", "room-runtime"]
+room = ["room-common", "room-ktx", "room-runtime"]
