@@ -1,13 +1,6 @@
 package com.mmb.clock
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -52,21 +45,27 @@ fun PomScreen(
     entity: PomodoroScreenEntity,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier.fillMaxSize(),
+    Column(
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Box {
             PomodoroClock(
                 text = entity.text,
                 numberOfPoms = entity.numberOfPoms,
                 pomsCompleted = entity.pomsCompleted,
-                progress = entity.progress
+                progress = entity.progress,
+                modifier = Modifier
+                    .padding(horizontal = Layout.largeMargin)
+                    .aspectRatio(1f)
             )
-
         }
-        Spacer(modifier = Modifier
-            .height(Layout.bodyMargin)
-            .fillMaxWidth())
+        Spacer(
+            modifier = Modifier
+                .height(Layout.bodyMargin)
+                .fillMaxWidth()
+        )
         ControlButton(
             state = entity.state,
             onClick = entity.onControlButtonClicked,

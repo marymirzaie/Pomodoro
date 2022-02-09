@@ -85,7 +85,7 @@ class PomodoroClockViewModel @Inject constructor(
     private fun updateProgress(timerState: TimerState): Float {
         val total = sessionTimerState.convertToSeconds()
         val remaining = total - timerState.convertToSeconds()
-        return remaining.toFloat() * 360 / total.toFloat()
+        return remaining.toFloat() / total.toFloat()
     }
 
     private fun updateTimerSate(state: TimerState) {

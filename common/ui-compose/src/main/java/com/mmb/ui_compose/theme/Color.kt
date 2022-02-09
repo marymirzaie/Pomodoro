@@ -3,6 +3,7 @@ package com.mmb.ui_compose.theme
 import androidx.compose.ui.graphics.Color
 
 val Red200 = Color(0xffec5f55)
+val Pink100 = Color(0xFFFFEEEE)
 val Pink200 = Color(0xffffbcbc)
 val Pink800 = Color(0xfff38ba0)
 val White100 = Color(0xfff6f6f6)
