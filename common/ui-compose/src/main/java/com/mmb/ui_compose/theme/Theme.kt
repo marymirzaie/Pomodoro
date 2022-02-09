@@ -34,6 +34,7 @@ fun PomodoroTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composab
     MaterialTheme(
         colors = colors,
         shapes = Shapes,
+        typography = Typography,
         content = content,
     )
 }
