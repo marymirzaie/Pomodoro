@@ -15,6 +15,14 @@ ext {
 
     library = [
             kotlin           : '1.3.72',
+            compose          : '1.2.0-alpha02',
+            hilt             : '2.39.1',
+            fragment         : '1.3.6',
+            composeNavigation: '2.4.0-alpha09',
+            composeHilt      : '2.4.0-beta01',
+            protobuf         : '3.12.0',
+            coroutineVersion : '1.5.1'
+
     ]
 
 }
