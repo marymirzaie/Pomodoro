@@ -61,12 +61,14 @@ fun PomScreen(
         }
         Spacer(
             modifier = Modifier
-                .height(Layout.bodyMargin)
+                .height(Layout.largeMargin)
                 .fillMaxWidth()
         )
         ControlButton(
             state = entity.state,
-            onClick = entity.onControlButtonClicked,
+            onResumeClicked = entity.onControlButtonClicked,
+            onRestartClicked = {},
+            onPauseClicked = entity.onControlButtonClicked,
             modifier = Modifier.size(50.dp)
         )
     }

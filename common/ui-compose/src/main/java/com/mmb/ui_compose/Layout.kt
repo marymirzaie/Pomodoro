@@ -10,6 +10,9 @@ object Layout {
 
     val normalFontSize = 18.sp
 
+    val iconSize: Dp
+        @Composable get() = 32.dp
+
     val largeMargin: Dp
         @Composable get() = when (LocalConfiguration.current.screenWidthDp) {
             in 0..599 -> 32.dp
