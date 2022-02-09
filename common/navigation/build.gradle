@@ -40,19 +40,14 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
-    //compose
-    implementation "androidx.compose.ui:ui:$library.compose"
-    implementation "androidx.navigation:navigation-compose:2.4.0-alpha09"
-    implementation "androidx.compose.material:material:$library.compose"
-    implementation "androidx.compose.material:material-icons-extended:$library.compose"
-    implementation "androidx.compose.ui:ui-tooling-preview:$library.compose"
     implementation project(":common:ui-compose")
     implementation project(":feature:clock")
+
+    implementation libs.ktx.core
+
+    implementation libs.compose.core
+    implementation libs.compose.navigation
+    implementation libs.compose.material
+    implementation libs.compose.icon.extended
+    implementation libs.compose.preview
 }
