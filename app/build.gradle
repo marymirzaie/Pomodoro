@@ -56,6 +56,7 @@ dependencies {
     implementation libs.lifecycle.runtime
     implementation libs.ktx.core
     implementation libs.appCompat
+    implementation libs.material
 
     implementation libs.compose.activity
     implementation libs.compose.core

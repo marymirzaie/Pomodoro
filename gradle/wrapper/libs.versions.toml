@@ -11,6 +11,7 @@ protobuf = "3.12.0"
 dataStore = "1.0.0"
 coroutine = "1.5.2"
 lifecyleRuntime = "2.4.0"
+materialVersion = "1.5.0"
 
 #[plugins]
 #spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
@@ -20,6 +21,7 @@ lifecyleRuntime = "2.4.0"
 appCompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
 ktx-core = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecyleRuntime" }
+material = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 
 compose-core = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
