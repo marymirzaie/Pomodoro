@@ -2,9 +2,10 @@ package com.mmb.ui_compose.component.pom
 
 import androidx.compose.foundation.clickable
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PauseCircle
-import androidx.compose.material.icons.filled.PlayCircle
+import androidx.compose.material.icons.filled.Pause
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,9 +20,9 @@ fun ControlButton(
     onClick: () -> Unit,
 ) {
     val vectorImage = if (state is ControlState.Running) {
-        Icons.Filled.PauseCircle
+        Icons.Filled.Pause
     } else {
-        Icons.Filled.PlayCircle
+        Icons.Filled.PlayArrow
     }
     val contentDescription = if (state is ControlState.Running) {
         stringResource(id = R.string.stop_timer_description)
@@ -30,6 +31,7 @@ fun ControlButton(
     }
     Icon(
         imageVector = vectorImage,
+        tint = MaterialTheme.colors.primary,
         contentDescription = contentDescription,
         modifier = modifier.clickable { onClick.invoke() },
     )

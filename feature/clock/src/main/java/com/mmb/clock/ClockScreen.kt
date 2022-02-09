@@ -53,8 +53,6 @@ fun PomScreen(
         Box {
             PomodoroClock(
                 text = entity.text,
-                numberOfPoms = entity.numberOfPoms,
-                pomsCompleted = entity.pomsCompleted,
                 progress = entity.progress,
                 modifier = Modifier
                     .padding(horizontal = Layout.largeMargin)
