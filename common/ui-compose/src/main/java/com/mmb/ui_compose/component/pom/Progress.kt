@@ -2,11 +2,7 @@ package com.mmb.ui_compose.component.pom
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -29,20 +25,24 @@ fun PomodoroProgress(
 ) {
     val stroke = with(LocalDensity.current) { Stroke(Layout.gutter.toPx()) }
     val color = MaterialTheme.colors.primary
-    Box(modifier = modifier
-        .padding(Layout.largeMargin)
-        .wrapContentSize()
-        .aspectRatio(1f)
-        .shadow(elevation = 12.dp, shape = CircleShape)
-        .clip(CircleShape)
-        .background(MaterialTheme.colors.surface, shape = CircleShape)
-        .padding(Layout.stroke),
-        contentAlignment = Alignment.Center) {
-        Canvas(modifier = modifier
-            .fillMaxSize()
+    Box(
+        modifier = modifier
+            .padding(Layout.largeMargin)
+            .wrapContentSize()
             .aspectRatio(1f)
+            .shadow(elevation = 12.dp, shape = CircleShape)
             .clip(CircleShape)
-            .padding(Layout.gutter)) {
+            .background(MaterialTheme.colors.secondary, shape = CircleShape)
+            .padding(Layout.stroke),
+        contentAlignment = Alignment.Center
+    ) {
+        Canvas(
+            modifier = modifier
+                .fillMaxSize()
+                .aspectRatio(1f)
+                .clip(CircleShape)
+                .padding(Layout.gutter)
+        ) {
             val innerRadius = (size.minDimension - stroke.width) / 2
             val halfSize = size / 2.0f
             val topLeft = Offset(
