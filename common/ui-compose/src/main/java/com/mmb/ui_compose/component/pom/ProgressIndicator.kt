@@ -3,11 +3,9 @@ package com.mmb.ui_compose.component.pom
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.StrokeCap
@@ -25,7 +23,6 @@ fun ProgressIndicator(percentage: Float, modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .aspectRatio(1f)
-            .clip(CircleShape)
     ) {
         val innerRadius = (size.minDimension - stroke.width) / 2
         val halfSize = size / 2.0f
