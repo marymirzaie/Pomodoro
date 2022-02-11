@@ -1,11 +1,17 @@
 package com.mmb.clock
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -19,16 +25,16 @@ import com.mmb.ui_compose.component.session.SessionProgress
 import com.mmb.ui_compose.component.session.SessionState
 
 @Composable
-fun Clock(navigateUp: () -> Unit) {
+fun Clock(navigateToSettings: () -> Unit) {
     val viewModel = hiltViewModel<PomodoroClockViewModel>()
-    Clock(viewModel = viewModel)
+    Clock(viewModel = viewModel, navigateToSettings)
 }
 
 @Composable
 internal fun Clock(
     viewModel: PomodoroClockViewModel,
+    navigateToSettings: () -> Unit
 ) {
-
     val timerState = viewModel.timer.observeAsState()
     val state = viewModel.buttonState.observeAsState()
     val progress = viewModel.progress.observeAsState()
@@ -41,12 +47,14 @@ internal fun Clock(
             progress = progress.value ?: 0f,
             onControlButtonClicked = viewModel::onButtonClicked
         ),
+        navigateToSettings
     )
 }
 
 @Composable
 fun PomScreen(
     entity: PomodoroScreenEntity,
+    navigateToSettings: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -54,11 +62,19 @@ fun PomScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Pomodoro",
-            modifier = Modifier.padding(vertical = 32.dp),
-            fontSize = 25.sp
-        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                imageVector = Icons.Filled.Settings,
+                contentDescription = stringResource(id = R.string.action_setting),
+                tint = MaterialTheme.colors.primary,
+                modifier = Modifier.clickable { navigateToSettings() }
+            )
+            Text(
+                text = "Pomodoro",
+                modifier = Modifier.padding(vertical = 32.dp),
+                fontSize = 25.sp
+            )
+        }
         Box {
             PomodoroClock(
                 text = entity.text,
@@ -94,6 +110,8 @@ fun PomScreenPreview() {
         2,
         state = ControlState.Running,
         progress = 100f
-    ) {}
+    ) {}, {
+
+    }
     )
 }

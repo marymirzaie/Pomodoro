@@ -63,13 +63,7 @@ fun PomodoroAppNavigation() {
             navController.navigate(screen.route)
         }
 
-        Scaffold(bottomBar = {
-            BottomNav(
-                allScreens = Screen.allScreens(),
-                onTabSelected = onTabSelected,
-                currentScreen = Screen.fromRoute(backStackEntry.value?.destination?.route)
-            )
-        }) { innerPadding ->
+        Scaffold { innerPadding ->
             AppNavigation(navController, Modifier.padding(innerPadding))
         }
     }
@@ -91,13 +85,9 @@ internal fun AppNavigation(
     }
 }
 
-private fun NavGraphBuilder.addClockScreen(
-    navController: NavHostController,
-) {
+private fun NavGraphBuilder.addClockScreen(navController: NavHostController) {
     composable(route = Screen.Clock.route) {
-        Clock(
-            navigateUp = navController::navigateUp
-        )
+        Clock(navigateToSettings = { navController.navigate(Screen.Settings.route) })
     }
 }
 

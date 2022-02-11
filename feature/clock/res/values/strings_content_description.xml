@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="resume_timer_description">resume_timer</string>
+    <string name="stop_timer_description">stop_timer</string>
+    <string name="restart_timer_description">restart_timer</string>
+    <string name="expand">expand</string>
+</resources>
