@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 fun ProgressIndicator(percentage: Float, modifier: Modifier = Modifier) {
     val stroke = with(LocalDensity.current) { Stroke(4.dp.toPx(), cap = StrokeCap.Round) }
     val color = MaterialTheme.colors.primary
-    val bac = MaterialTheme.colors.onSecondary
+    val bac = MaterialTheme.colors.primaryVariant
     Canvas(
         modifier = modifier
             .fillMaxSize()

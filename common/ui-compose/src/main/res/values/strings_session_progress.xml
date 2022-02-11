@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="session_focus">Focus</string>
+    <string name="session_short_break">Short Break</string>
+    <string name="session_long_break">Long Break</string>
+</resources>
