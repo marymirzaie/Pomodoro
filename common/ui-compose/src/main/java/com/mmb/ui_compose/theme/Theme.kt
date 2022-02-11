@@ -8,18 +8,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val LightColorPalette = lightColors(
-    primary = Pink200,
-    onPrimary = Pink800,
-    secondary = Pink800,
-    onSecondary = Grey100,
+    primary = Pink800,
+    onPrimary = Color.Black,
+    secondary = Pink100,
+    onSecondary = Grey200,
+    primaryVariant = Pink200,
     surface = Color.White
 )
 
 private val DarkColorPalette = darkColors(
-    primary = Pink200,
-    onPrimary = Pink800,
-    secondary = Pink800,
+    primary = Pink800,
+    onPrimary = Color.Black,
+    secondary = Pink100,
     onSecondary = Grey200,
+    primaryVariant = Pink200,
     surface = Grey800,
 )
 
@@ -34,6 +36,7 @@ fun PomodoroTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composab
     MaterialTheme(
         colors = colors,
         shapes = Shapes,
+        typography = Typography,
         content = content,
     )
 }

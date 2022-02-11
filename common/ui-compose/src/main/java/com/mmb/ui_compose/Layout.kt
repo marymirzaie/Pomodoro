@@ -3,12 +3,18 @@ package com.mmb.ui_compose
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 object Layout {
 
     val normalFontSize = 18.sp
+    val tinyFont: TextUnit
+        @Composable get() = 12.sp
+
+    val iconSize: Dp
+        @Composable get() = 32.dp
 
     val largeMargin: Dp
         @Composable get() = when (LocalConfiguration.current.screenWidthDp) {
