@@ -10,6 +10,7 @@ message Setting {
   int32 long_break_duration = 4;
   bool enable_sounds = 5;
   THEME theme = 6;
+  string session_name = 7;
 
   enum THEME{
     DARK = 0;

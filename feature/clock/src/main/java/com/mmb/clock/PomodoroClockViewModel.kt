@@ -27,6 +27,8 @@ class PomodoroClockViewModel @Inject constructor(
     private val _buttonState: MutableLiveData<ControlState> = MutableLiveData()
     val buttonState: LiveData<ControlState> = _buttonState
 
+    val sessionName = repository.getSessionName()
+
     private var sessionTimerState = TimerState()
     private var currentTimerState = sessionTimerState
 

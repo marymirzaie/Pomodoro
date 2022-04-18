@@ -4,12 +4,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mmb.setting.viewmodel.SettingViewModel
+import com.mmb.ui_compose.Layout
 
 @Composable
 fun Setting() {
@@ -25,7 +28,22 @@ internal fun SettingScreen(
             .padding(horizontal = 16.dp, vertical = 16.dp)
             .fillMaxWidth()
     ) {
-        Text(text = "Pomodoro")
+        Text(
+            text = "Pomodoro",
+            modifier = Modifier.padding(vertical = 8.dp),
+            fontSize = Layout.largeFontSize
+        )
+        Text(text = "Name", modifier = Modifier.padding(vertical = 8.dp))
+        val sessionName = viewModel.sessionName.collectAsState(initial = "").value
+        TextField(
+            value = sessionName,
+            onValueChange = viewModel::setSessionName,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            singleLine = true,
+        )
+
         viewModel.setting.observeAsState().value?.let {
             Slider("Focus time", it.focusDuration, viewModel::setFocusDuration, "Min", 60)
             Slider(

@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +41,7 @@ internal fun Clock(
     val progress = viewModel.progress.observeAsState()
     PomScreen(
         PomodoroScreenEntity(
+            sessionName = viewModel.sessionName.collectAsState(initial = "").value,
             text = timerState.value?.toString() ?: "",
             numberOfPoms = 3,
             pomsCompleted = 2,
@@ -70,7 +72,7 @@ fun PomScreen(
                 modifier = Modifier.clickable { navigateToSettings() }
             )
             Text(
-                text = "Pomodoro",
+                text = entity.sessionName,
                 modifier = Modifier.padding(vertical = 32.dp),
                 fontSize = 25.sp
             )
@@ -105,6 +107,7 @@ fun PomScreen(
 @Preview
 fun PomScreenPreview() {
     PomScreen(PomodoroScreenEntity(
+        "",
         "12:00",
         3,
         2,
