@@ -20,10 +20,7 @@ fun Slider(
     valuePlaceHolder: String = "",
     maxValue: Int
 ) {
-    val initialSliderPosition = (initialValue / maxValue.toFloat())
-    val sliderPosition = remember { mutableStateOf(initialSliderPosition) }
-    val intPosition = (sliderPosition.value * maxValue).roundToInt()
-
+    val sliderPosition = remember { mutableStateOf(initialValue) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -32,13 +29,14 @@ fun Slider(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(text = label)
-            Text(text = "$intPosition $valuePlaceHolder")
+            Text(text = "${sliderPosition.value} $valuePlaceHolder")
         }
         androidx.compose.material.Slider(
-            value = sliderPosition.value,
+            valueRange = 1f..maxValue.toFloat(),
+            value = sliderPosition.value.toFloat(),
             onValueChange = {
-                sliderPosition.value = it
-                onValueChange(intPosition)
+                sliderPosition.value = it.roundToInt()
+                onValueChange(sliderPosition.value)
             }
         )
     }
