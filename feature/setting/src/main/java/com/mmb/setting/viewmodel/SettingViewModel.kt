@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mmb.setting.datasource.SettingRepository
+import com.mmb.setting.datasource.SettingRepositoryImpl
 import com.mmb.setting.entity.SettingViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
-    private val repository: SettingRepository,
+    private val repository: SettingRepositoryImpl,
 ) : ViewModel() {
 
     private val settingViewState: Flow<SettingViewState> = repository.getSettings()
@@ -23,8 +23,16 @@ class SettingViewModel @Inject constructor(
     private val _setting: MutableLiveData<SettingViewState> = MutableLiveData()
     val setting: LiveData<SettingViewState> = _setting
 
+    val sessionName = repository.getSessionName()
+
     val themeViewState: Flow<String> = settingViewState
         .map { it.theme }
+
+    fun setSessionName(name: String) {
+        viewModelScope.launch {
+            repository.setSessionName(name)
+        }
+    }
 
     fun setFocusDuration(value: Int) {
         viewModelScope.launch {

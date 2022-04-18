@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mmb.clock.TimerState.Companion.SECOND_MILLS
-import com.mmb.setting.datasource.SettingRepository
+import com.mmb.core.SettingRepository
 import com.mmb.ui_compose.component.pom.entity.ControlState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect

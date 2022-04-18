@@ -39,8 +39,8 @@ android {
 }
 
 dependencies {
-    api project(":feature:setting")
     implementation project(":common:ui-compose")
+    implementation project(":common:core")
 
     implementation libs.appCompat
     implementation libs.ktx.core
