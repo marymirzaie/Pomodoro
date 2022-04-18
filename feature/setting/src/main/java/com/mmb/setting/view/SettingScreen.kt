@@ -3,8 +3,8 @@ package com.mmb.setting.view
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
@@ -33,14 +33,14 @@ internal fun SettingScreen(
             modifier = Modifier.padding(vertical = 8.dp),
             fontSize = Layout.largeFontSize
         )
-        Text(text = "Name", modifier = Modifier.padding(vertical = 8.dp))
+        Text(text = "Name", modifier = Modifier.padding(top = 8.dp))
         val sessionName = viewModel.sessionName.collectAsState(initial = "").value
-        TextField(
+        OutlinedTextField(
             value = sessionName,
             onValueChange = viewModel::setSessionName,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp),
+                .padding(vertical = 16.dp),
             singleLine = true,
         )
 
