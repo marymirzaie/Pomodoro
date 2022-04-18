@@ -10,6 +10,8 @@ import androidx.compose.ui.unit.sp
 object Layout {
 
     val normalFontSize = 18.sp
+    val largeFontSize = 25.sp
+
     val tinyFont: TextUnit
         @Composable get() = 12.sp
 

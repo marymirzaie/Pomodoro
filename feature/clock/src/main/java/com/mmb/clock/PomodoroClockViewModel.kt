@@ -6,11 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mmb.clock.TimerState.Companion.SECOND_MILLS
-import com.mmb.setting.datasource.SettingRepository
-import com.mmb.setting.entity.SettingViewState
+import com.mmb.core.SettingRepository
 import com.mmb.ui_compose.component.pom.entity.ControlState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,8 +17,6 @@ import javax.inject.Inject
 class PomodoroClockViewModel @Inject constructor(
     private val repository: SettingRepository,
 ) : ViewModel() {
-
-    val settingViewState: Flow<SettingViewState> = repository.getSettings()
 
     private val _progress: MutableLiveData<Float> = MutableLiveData()
     val progress: LiveData<Float> = _progress
@@ -31,6 +27,8 @@ class PomodoroClockViewModel @Inject constructor(
     private val _buttonState: MutableLiveData<ControlState> = MutableLiveData()
     val buttonState: LiveData<ControlState> = _buttonState
 
+    val sessionName = repository.getSessionName()
+
     private var sessionTimerState = TimerState()
     private var currentTimerState = sessionTimerState
 
@@ -38,8 +36,8 @@ class PomodoroClockViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            settingViewState.collect {
-                sessionTimerState = TimerState(it.sessionDuration.toLong(), 0)
+            repository.getFocusDuration().collect { duration ->
+                sessionTimerState = TimerState(duration.toLong(), 0)
                 currentTimerState = sessionTimerState
                 updateTimerSate(currentTimerState)
             }
@@ -48,7 +46,8 @@ class PomodoroClockViewModel @Inject constructor(
 
     private fun startTimer() {
         if (countDownTimer != null) return
-        countDownTimer = object : CountDownTimer(currentTimerState.convertToSeconds(),
+        countDownTimer = object : CountDownTimer(
+            currentTimerState.convertToSeconds(),
             SECOND_MILLS
         ) {
             override fun onTick(millisUntilFinished: Long) {

@@ -81,6 +81,7 @@ dependencies {
     implementation libs.compose.material
     implementation libs.compose.lifecycle
     implementation libs.compose.hilt.navigation
+    implementation libs.compose.runtime.livedata
 
     implementation libs.datastore.androidx
     implementation libs.datastore.core

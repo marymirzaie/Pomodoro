@@ -1,7 +1,9 @@
 package com.mmb.setting.datasource
 
 import androidx.datastore.core.DataStore
+import com.mmb.core.SettingRepository
 import com.mmb.core.dispatcher.Dispatcher
+import com.mmb.setting.entity.SettingDefaults
 import com.mmb.setting.entity.SettingViewState
 import com.mmb.setting_proto.Setting
 import kotlinx.coroutines.flow.Flow
@@ -11,10 +13,14 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SettingRepository @Inject constructor(
+class SettingRepositoryImpl @Inject constructor(
     private val dispatcher: Dispatcher,
     private val dataStore: DataStore<Setting>,
-) {
+) : SettingRepository {
+
+    override fun getSessionName(): Flow<String> {
+        return dataStore.data.map { it.sessionName }
+    }
 
     private suspend fun updateData(
         transform: (Setting.Builder) -> Setting.Builder,
@@ -30,6 +36,12 @@ class SettingRepository @Inject constructor(
     suspend fun updateSessionDuration(duration: Int) {
         updateData {
             it.setSessionDuration(duration)
+        }
+    }
+
+    suspend fun updateSessionCount(value: Int) {
+        updateData {
+            it.setSessionCount(value)
         }
     }
 
@@ -63,6 +75,12 @@ class SettingRepository @Inject constructor(
         }
     }
 
+    suspend fun setSessionName(name: String) {
+        updateData {
+            it.setSessionName(name)
+        }
+    }
+
     fun getSettings(): Flow<SettingViewState> {
         return mapToSettingsViewState(dataStore.data)
     }
@@ -71,23 +89,31 @@ class SettingRepository @Inject constructor(
         return listOf(DARK_THEME, LIGHT_THEME, SYSTEM_DEFAULT_THEME)
     }
 
+    override fun getFocusDuration(): Flow<Int> {
+        return dataStore.data.map {
+            if (it.sessionDuration == 0) SettingDefaults.DEFAULT_SESSION else it.sessionDuration
+        }
+    }
+
+
     private fun mapToSettingsViewState(settingProto: Flow<Setting>): Flow<SettingViewState> {
         return settingProto.map {
             val theme = when (it.theme) {
-                Setting.THEME.SYSTEM_DEFAULT -> SettingRepository.SYSTEM_DEFAULT_THEME
-                Setting.THEME.DARK -> SettingRepository.DARK_THEME
-                Setting.THEME.LIGHT -> SettingRepository.LIGHT_THEME
-                else -> SettingRepository.SYSTEM_DEFAULT_THEME
+                Setting.THEME.SYSTEM_DEFAULT -> SettingRepositoryImpl.SYSTEM_DEFAULT_THEME
+                Setting.THEME.DARK -> SettingRepositoryImpl.DARK_THEME
+                Setting.THEME.LIGHT -> SettingRepositoryImpl.LIGHT_THEME
+                else -> SettingRepositoryImpl.SYSTEM_DEFAULT_THEME
             }
+
             SettingViewState(
-                it.sessionDuration.toString(),
-                it.shortBreakDuration.toString(),
-                it.longBreakDuration.toString(),
+                it.sessionDuration,
+                it.shortBreakDuration,
+                it.longBreakDuration,
+                it.sessionCount,
                 it.enableSounds,
                 theme
             )
         }
-
     }
 
     companion object {

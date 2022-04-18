@@ -42,6 +42,7 @@ dependencies {
 
     implementation project(":common:ui-compose")
     implementation project(":feature:clock")
+    implementation project(":feature:setting")
 
     implementation libs.ktx.core
 
