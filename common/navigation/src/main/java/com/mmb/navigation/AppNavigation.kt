@@ -8,10 +8,8 @@ import androidx.compose.material.icons.filled.PersonOutline
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -19,10 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mmb.clock.Clock
-import com.mmb.setting.datasource.SettingRepository
-import com.mmb.setting.entity.SettingViewState
 import com.mmb.setting.view.Setting
-import com.mmb.setting.viewmodel.SettingViewModel
 import com.mmb.ui_compose.theme.PomodoroTheme
 
 internal sealed class Screen(val route: String, val icon: ImageVector) {
@@ -49,21 +44,15 @@ internal sealed class Screen(val route: String, val icon: ImageVector) {
 
 @Composable
 fun PomodoroAppNavigation() {
-    val viewModel = viewModel<SettingViewModel>()
-    val themeViewState = viewModel.themeViewState.collectAsState(SettingViewState())
-    val theme = when (themeViewState.value) {
-        SettingRepository.LIGHT_THEME -> false
-        SettingRepository.DARK_THEME -> true
-        else -> isSystemInDarkTheme()
-    }
-    PomodoroTheme(darkTheme = theme) {
+    isSystemInDarkTheme()
+    PomodoroTheme(darkTheme = isSystemInDarkTheme()) {
         val navController = rememberNavController()
         val backStackEntry = navController.currentBackStackEntryAsState()
         val onTabSelected = { screen: Screen ->
             navController.navigate(screen.route)
         }
 
-        Scaffold { innerPadding ->
+        Scaffold() { innerPadding ->
             AppNavigation(navController, Modifier.padding(innerPadding))
         }
     }
