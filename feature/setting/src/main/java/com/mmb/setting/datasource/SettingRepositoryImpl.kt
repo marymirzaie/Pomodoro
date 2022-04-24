@@ -95,6 +95,23 @@ class SettingRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getShortBreakDuration(): Flow<Int> {
+        return dataStore.data.map {
+            if (it.shortBreakDuration == 0) SettingDefaults.DEFAULT_SHORT_BREAK else it.shortBreakDuration
+        }
+    }
+
+    override fun getLongBreakDuration(): Flow<Int> {
+        return dataStore.data.map {
+            if (it.longBreakDuration == 0) SettingDefaults.DEFAULT_LONG_BREAK else it.longBreakDuration
+        }
+    }
+
+    override fun getFullPomCount(): Flow<Int> {
+        return dataStore.data.map {
+            if (it.sessionCount == 0) SettingDefaults.DEFAULT_SESSION_COUNT else it.sessionCount
+        }
+    }
 
     private fun mapToSettingsViewState(settingProto: Flow<Setting>): Flow<SettingViewState> {
         return settingProto.map {

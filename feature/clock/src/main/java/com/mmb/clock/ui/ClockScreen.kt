@@ -92,11 +92,6 @@ fun PomScreen(
                     .aspectRatio(1f)
             )
         }
-        Text(
-            text = "4 of 4",
-            modifier = Modifier.padding(vertical = 16.dp),
-            fontSize = 20.sp
-        )
         ControlButton(
             running = entity.timerRunning,
             onResumeClicked = onStartClicked,
@@ -105,6 +100,12 @@ fun PomScreen(
             modifier = Modifier.size(50.dp)
         )
         Spacer(modifier = Modifier.height(32.dp))
-        SessionProgress(state = viewModel.sessionType.observeAsState().value ?: SessionState.FOCUS)
+        val sessionProgress = viewModel.completedPom.observeAsState(Pair(0, 0))
+
+        SessionProgress(
+            state = viewModel.sessionType.observeAsState(SessionState.FOCUS).value,
+            completed = viewModel.completedPom.observeAsState(1).value,
+            pomCount = viewModel.pomCount.collectAsState(0).value
+        )
     }
 }

@@ -25,6 +25,10 @@ class PomodoroClockViewModel @Inject constructor(
     private val _sessionType: MutableLiveData<SessionState> = MutableLiveData()
     val sessionType: LiveData<SessionState> = _sessionType
 
+    private val _completedPom: MutableLiveData<Int> = MutableLiveData()
+    val completedPom: LiveData<Int> = _completedPom
+    val pomCount = repository.getFullPomCount()
+
     val sessionName = repository.getSessionName()
     private var sessionTimerState = TimerState()
 
@@ -58,18 +62,64 @@ class PomodoroClockViewModel @Inject constructor(
     }
 
     private fun onSessionCompleted() {
-        val next = getNextSession()
+        when (currentSessionType) {
+            FOCUS -> {
+                viewModelScope.launch {
+                    pomCount.collect { count ->
+                        val currentPomState = _completedPom.value ?: 1
+                        if (currentPomState == count) {
+                            updateSessionType(LONG_BREAK)
+                        } else {
+                            updateSessionType(SHORT_BREAK)
+                        }
+                    }
+                }
+            }
+            LONG_BREAK -> {
+                viewModelScope.launch {
+                    pomCount.collect {
+                        _completedPom.value = 1
+                    }
+                }
+                updateSessionType(FOCUS)
+                val currentPomState = _completedPom.value ?: 1
+                _completedPom.value = currentPomState + 1
+            }
+            else -> {
+                updateSessionType(FOCUS)
+                val currentPomState = _completedPom.value ?: 1
+                _completedPom.value = currentPomState + 1
+            }
+        }
+        timeManager.pauseTimer()
         _buttonState.value = false
-        currentSessionType = next
-        _sessionType.value = next
     }
 
-    private fun getNextSession(): SessionState {
-        return when (currentSessionType) {
-            //handle short and long breaks
-            FOCUS -> SHORT_BREAK
-            SHORT_BREAK -> FOCUS
-            LONG_BREAK -> FOCUS
+    private fun updateSessionType(type: SessionState) {
+        currentSessionType = type
+        _sessionType.value = currentSessionType
+        viewModelScope.launch {
+
+            when (currentSessionType) {
+                FOCUS -> {
+                    repository.getFocusDuration().collect {
+                        sessionTimerState = TimerState(it.toLong())
+                        timeManager.initiate(sessionTimerState)
+                    }
+                }
+                LONG_BREAK -> {
+                    repository.getLongBreakDuration().collect {
+                        sessionTimerState = TimerState(it.toLong())
+                        timeManager.initiate(sessionTimerState)
+                    }
+                }
+                else -> {
+                    repository.getShortBreakDuration().collect {
+                        sessionTimerState = TimerState(it.toLong())
+                        timeManager.initiate(sessionTimerState)
+                    }
+                }
+            }
         }
     }
 }

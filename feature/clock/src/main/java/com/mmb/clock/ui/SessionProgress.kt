@@ -1,25 +1,47 @@
 package com.mmb.clock.ui
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Chair
 import androidx.compose.material.icons.filled.LocalCafe
 import androidx.compose.material.icons.sharp.Computer
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.mmb.clock.entity.SessionState
 import com.mmb.ui_compose.Layout
 import com.mmb.ui_compose.R
 import com.mmb.ui_compose.component.session.SessionIcon
 
 @Composable
-fun SessionProgress(state: SessionState, modifier: Modifier = Modifier) {
+fun SessionProgress(
+    state: SessionState,
+    completed: Int,
+    pomCount: Int,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "$completed of $pomCount",
+            modifier = Modifier.padding(vertical = 16.dp),
+            fontSize = 20.sp
+        )
+        SessionIndicator(state)
+    }
+}
+
+@Composable
+private fun SessionIndicator(state: SessionState, modifier: Modifier = Modifier) {
     val active = MaterialTheme.colors.primary
     val inactive = MaterialTheme.colors.primaryVariant
 
@@ -59,5 +81,5 @@ fun SessionProgress(state: SessionState, modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun SessionPreview() {
-    SessionProgress(state = SessionState.SHORT_BREAK)
+    SessionProgress(state = SessionState.SHORT_BREAK, 2, 4)
 }
