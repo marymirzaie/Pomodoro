@@ -1,0 +1,61 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk build.compileSdkVersion
+
+    defaultConfig {
+        minSdk build.minSdkVersion
+        targetSdk build.targetSdkVersion
+        versionCode app.versionCode
+        versionName app.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion library.compose
+    }
+}
+
+dependencies {
+
+    implementation project(":common:ui-compose")
+    implementation project(":common:core")
+
+    implementation libs.appCompat
+    implementation libs.ktx.core
+
+    implementation libs.compose.core
+    implementation libs.compose.preview
+    debugImplementation libs.compse.tooling
+    implementation libs.compose.material
+    implementation libs.compose.icon.extended
+
+    implementation libs.compose.lifecycle
+    implementation libs.compose.hilt.navigation
+    implementation libs.compose.runtime.livedata
+
+    implementation libs.hilt.core
+    kapt libs.hilt.compiler
+}
