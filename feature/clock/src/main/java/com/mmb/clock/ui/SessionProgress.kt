@@ -1,4 +1,4 @@
-package com.mmb.ui_compose.component.session
+package com.mmb.clock.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -13,14 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.mmb.clock.entity.SessionState
 import com.mmb.ui_compose.Layout
 import com.mmb.ui_compose.R
-
-enum class SessionState {
-    FOCUS,
-    SHORT_BREAK,
-    LONG_BREAK
-}
+import com.mmb.ui_compose.component.session.SessionIcon
 
 @Composable
 fun SessionProgress(state: SessionState, modifier: Modifier = Modifier) {

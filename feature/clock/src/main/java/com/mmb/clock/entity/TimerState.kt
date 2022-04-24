@@ -2,8 +2,7 @@ package com.mmb.clock.entity
 
 data class TimerState(
     val minutes: Long = 0,
-    val seconds: Long = 0,
-    val finish: Boolean = false,
+    val seconds: Long = 0
 ) {
 
     companion object {

@@ -15,7 +15,6 @@ class TimeManager @Inject constructor() {
     private val _timer: MutableLiveData<TimerState> = MutableLiveData()
     val timer: LiveData<TimerState> = _timer
 
-
     private var currentTimerState = TimerState()
 
     private var countDownTimer: CountDownTimer? = null
@@ -25,7 +24,7 @@ class TimeManager @Inject constructor() {
         updateTimerSate(currentTimerState, session)
     }
 
-    fun startTimer(session: TimerState) {
+    fun startTimer(session: TimerState, onSessionCompleted: () -> Unit) {
         if (countDownTimer != null) return
         countDownTimer = object : CountDownTimer(
             currentTimerState.convertToSeconds(),
@@ -36,7 +35,8 @@ class TimeManager @Inject constructor() {
             }
 
             override fun onFinish() {
-                updateTimerSate(session.copy(finish = true), session)
+                updateTimerSate(session, session)
+                onSessionCompleted()
             }
         }.start()
     }

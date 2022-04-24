@@ -1,4 +1,4 @@
-package com.mmb.clock
+package com.mmb.clock.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,17 +13,16 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mmb.clock.R
 import com.mmb.clock.entity.PomodoroScreenEntity
+import com.mmb.clock.entity.SessionState
 import com.mmb.clock.viewmodel.PomodoroClockViewModel
 import com.mmb.ui_compose.Layout
 import com.mmb.ui_compose.component.pom.ControlButton
 import com.mmb.ui_compose.component.pom.PomodoroClock
-import com.mmb.ui_compose.component.session.SessionProgress
-import com.mmb.ui_compose.component.session.SessionState
 
 @Composable
 fun Clock(navigateToSettings: () -> Unit) {
@@ -52,6 +51,7 @@ internal fun Clock(
         viewModel::startTimer,
         viewModel::pauseTimer,
         viewModel::restartTimer,
+        viewModel
     )
 }
 
@@ -62,6 +62,7 @@ fun PomScreen(
     onStartClicked: () -> Unit,
     onPauseClicked: () -> Unit,
     onRestartClicked: () -> Unit,
+    viewModel: PomodoroClockViewModel,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -104,24 +105,6 @@ fun PomScreen(
             modifier = Modifier.size(50.dp)
         )
         Spacer(modifier = Modifier.height(32.dp))
-        SessionProgress(state = SessionState.FOCUS)
+        SessionProgress(state = viewModel.sessionType.observeAsState().value ?: SessionState.FOCUS)
     }
-}
-
-@Composable
-@Preview
-fun PomScreenPreview() {
-    PomScreen(PomodoroScreenEntity(
-        "",
-        "12:00",
-        3,
-        2,
-        timerRunning = true,
-        progress = 100f
-    ),
-        {},
-        {},
-        {},
-        {}
-    )
 }

@@ -16,7 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.mmb.clock.Clock
+import com.mmb.clock.ui.Clock
 import com.mmb.setting.view.Setting
 import com.mmb.ui_compose.theme.PomodoroTheme
 
