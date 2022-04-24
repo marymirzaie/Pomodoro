@@ -17,10 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mmb.clock.entity.PomodoroScreenEntity
 import com.mmb.ui_compose.Layout
 import com.mmb.ui_compose.component.pom.ControlButton
 import com.mmb.ui_compose.component.pom.PomodoroClock
-import com.mmb.ui_compose.component.pom.entity.PomodoroScreenEntity
 import com.mmb.ui_compose.component.session.SessionProgress
 import com.mmb.ui_compose.component.session.SessionState
 

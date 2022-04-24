@@ -1,4 +1,4 @@
-package com.mmb.ui_compose.component.pom.entity
+package com.mmb.clock.entity
 
 data class PomodoroScreenEntity(
     val sessionName: String,
