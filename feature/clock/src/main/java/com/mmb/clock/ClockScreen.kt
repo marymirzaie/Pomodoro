@@ -20,7 +20,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mmb.ui_compose.Layout
 import com.mmb.ui_compose.component.pom.ControlButton
 import com.mmb.ui_compose.component.pom.PomodoroClock
-import com.mmb.ui_compose.component.pom.entity.ControlState
 import com.mmb.ui_compose.component.pom.entity.PomodoroScreenEntity
 import com.mmb.ui_compose.component.session.SessionProgress
 import com.mmb.ui_compose.component.session.SessionState
@@ -37,7 +36,7 @@ internal fun Clock(
     navigateToSettings: () -> Unit
 ) {
     val timerState = viewModel.timer.observeAsState()
-    val state = viewModel.buttonState.observeAsState()
+    val timerRunning = viewModel.timerRunning.observeAsState()
     val progress = viewModel.progress.observeAsState()
     PomScreen(
         PomodoroScreenEntity(
@@ -45,7 +44,7 @@ internal fun Clock(
             text = timerState.value?.toString() ?: "",
             numberOfPoms = 3,
             pomsCompleted = 2,
-            state = state.value ?: ControlState.Paused,
+            timerRunning = timerRunning.value ?: false,
             progress = progress.value ?: 0f,
         ),
         navigateToSettings,
@@ -97,7 +96,7 @@ fun PomScreen(
             fontSize = 20.sp
         )
         ControlButton(
-            state = entity.state,
+            running = entity.timerRunning,
             onResumeClicked = onStartClicked,
             onRestartClicked = onRestartClicked,
             onPauseClicked = onPauseClicked,
@@ -116,7 +115,7 @@ fun PomScreenPreview() {
         "12:00",
         3,
         2,
-        state = ControlState.Running,
+        timerRunning = true,
         progress = 100f
     ),
         {},

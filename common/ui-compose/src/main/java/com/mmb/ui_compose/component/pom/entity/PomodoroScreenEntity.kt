@@ -6,5 +6,5 @@ data class PomodoroScreenEntity(
     val numberOfPoms: Int,
     val pomsCompleted: Int,
     val progress: Float,
-    val state: ControlState,
+    val timerRunning: Boolean,
 )

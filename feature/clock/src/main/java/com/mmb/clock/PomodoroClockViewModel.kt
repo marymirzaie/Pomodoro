@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mmb.core.SettingRepository
-import com.mmb.ui_compose.component.pom.entity.ControlState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -17,8 +16,8 @@ class PomodoroClockViewModel @Inject constructor(
     private val timeManager: TimeManager
 ) : ViewModel() {
 
-    private val _buttonState: MutableLiveData<ControlState> = MutableLiveData()
-    val buttonState: LiveData<ControlState> = _buttonState
+    private val _buttonState: MutableLiveData<Boolean> = MutableLiveData()
+    val timerRunning: LiveData<Boolean> = _buttonState
 
     val sessionName = repository.getSessionName()
     private var sessionTimerState = TimerState()
@@ -37,17 +36,17 @@ class PomodoroClockViewModel @Inject constructor(
     }
 
     fun startTimer() {
-        _buttonState.value = ControlState.Running
+        _buttonState.value = true
         timeManager.startTimer(sessionTimerState)
     }
 
     fun pauseTimer() {
-        _buttonState.value = ControlState.Paused
+        _buttonState.value = false
         timeManager.pauseTimer()
     }
 
     fun restartTimer() {
-        _buttonState.value = ControlState.Paused
+        _buttonState.value = false
         timeManager.restartTimer(sessionTimerState)
     }
 }
