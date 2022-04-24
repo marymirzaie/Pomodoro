@@ -47,9 +47,11 @@ internal fun Clock(
             pomsCompleted = 2,
             state = state.value ?: ControlState.Paused,
             progress = progress.value ?: 0f,
-            onControlButtonClicked = viewModel::onButtonClicked
         ),
-        navigateToSettings
+        navigateToSettings,
+        viewModel::startTimer,
+        viewModel::pauseTimer,
+        viewModel::restartTimer,
     )
 }
 
@@ -57,6 +59,9 @@ internal fun Clock(
 fun PomScreen(
     entity: PomodoroScreenEntity,
     navigateToSettings: () -> Unit,
+    onStartClicked: () -> Unit,
+    onPauseClicked: () -> Unit,
+    onRestartClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -93,9 +98,9 @@ fun PomScreen(
         )
         ControlButton(
             state = entity.state,
-            onResumeClicked = entity.onControlButtonClicked,
-            onRestartClicked = {},
-            onPauseClicked = entity.onControlButtonClicked,
+            onResumeClicked = onStartClicked,
+            onRestartClicked = onRestartClicked,
+            onPauseClicked = onPauseClicked,
             modifier = Modifier.size(50.dp)
         )
         Spacer(modifier = Modifier.height(32.dp))
@@ -113,8 +118,10 @@ fun PomScreenPreview() {
         2,
         state = ControlState.Running,
         progress = 100f
-    ) {}, {
-
-    }
+    ),
+        {},
+        {},
+        {},
+        {}
     )
 }
