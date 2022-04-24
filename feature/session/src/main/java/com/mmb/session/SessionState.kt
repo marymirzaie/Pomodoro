@@ -1,4 +1,4 @@
-package com.mmb.session.ui
+package com.mmb.session
 
 enum class SessionState {
     FOCUS,

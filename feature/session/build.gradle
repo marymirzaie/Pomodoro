@@ -58,4 +58,9 @@ dependencies {
 
     implementation libs.hilt.core
     kapt libs.hilt.compiler
+
+    //test
+    testImplementation libs.test.junit
+    testImplementation libs.test.mockito.core
+    testImplementation libs.test.mockito.kotlin
 }
