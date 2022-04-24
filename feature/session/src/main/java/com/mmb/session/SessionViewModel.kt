@@ -23,9 +23,6 @@ class SessionViewModel @Inject constructor(
 
     val pomCount = settingRepository.getFullPomCount()
 
-    private val _sessionType: MutableLiveData<SessionState> = MutableLiveData()
-    val sessionType: LiveData<SessionState> = _sessionType
-
     private val _sessionDuration: MutableLiveData<Int> = MutableLiveData()
     val sessionDuration: LiveData<Int> = _sessionDuration
 
@@ -98,8 +95,9 @@ class SessionViewModel @Inject constructor(
     private fun onFocusFinish() {
         viewModelScope.launch {
             pomCount.collect { count ->
-                val currentPomState = _completedPom.value ?: 1
-                if (currentPomState == count) {
+                val currentPomState = _completedPom.value ?: 0
+                _completedPom.value = currentPomState + 1
+                if (currentPomState + 1 == count) {
                     updateSessionType(SessionState.LONG_BREAK)
                 } else {
                     updateSessionType(SessionState.SHORT_BREAK)
@@ -110,24 +108,20 @@ class SessionViewModel @Inject constructor(
 
     private fun onShortBreakFinish() {
         updateSessionType(SessionState.FOCUS)
-        val currentPomState = _completedPom.value ?: 1
-        _completedPom.value = currentPomState + 1
     }
 
     private fun onLongBreakFinish() {
         viewModelScope.launch {
             pomCount.collect {
-                _completedPom.value = 1
+                _completedPom.value = 0
             }
         }
         updateSessionType(SessionState.FOCUS)
-        val currentPomState = _completedPom.value ?: 1
-        _completedPom.value = currentPomState + 1
     }
 
     private fun updateSessionType(type: SessionState) {
         currentSessionType = type
-        _sessionType.value = currentSessionType
+        getIndicators()
         val session = when (currentSessionType) {
             SessionState.FOCUS -> settingRepository.getFocusDuration()
             SessionState.LONG_BREAK -> settingRepository.getLongBreakDuration()

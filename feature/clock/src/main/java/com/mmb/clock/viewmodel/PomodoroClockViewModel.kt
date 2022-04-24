@@ -30,7 +30,11 @@ class PomodoroClockViewModel @Inject constructor(
 
     fun startTimer(onTimerCompleted: () -> Unit) {
         _buttonState.value = true
-        timeManager.startTimer(sessionTimerState, onTimerCompleted)
+        timeManager.startTimer(sessionTimerState) {
+            onTimerCompleted()
+            timeManager.pauseTimer()
+            _buttonState.value = false
+        }
     }
 
     fun pauseTimer() {
