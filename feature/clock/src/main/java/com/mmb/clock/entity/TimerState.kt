@@ -1,4 +1,4 @@
-package com.mmb.clock
+package com.mmb.clock.entity
 
 data class TimerState(
     val minutes: Long = 0,

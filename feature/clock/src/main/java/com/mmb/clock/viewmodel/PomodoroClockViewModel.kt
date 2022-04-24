@@ -1,9 +1,10 @@
-package com.mmb.clock
+package com.mmb.clock.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mmb.clock.entity.TimerState
 import com.mmb.core.SettingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect

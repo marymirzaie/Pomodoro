@@ -1,8 +1,10 @@
-package com.mmb.clock
+package com.mmb.clock.viewmodel
 
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.mmb.clock.convertToTimerState
+import com.mmb.clock.entity.TimerState
 import javax.inject.Inject
 
 class TimeManager @Inject constructor() {
