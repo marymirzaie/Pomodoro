@@ -1,15 +1,19 @@
 package com.mmb.navigation
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PersonOutline
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -17,6 +21,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mmb.clock.ui.Clock
+import com.mmb.clock.viewmodel.PomodoroClockViewModel
+import com.mmb.session.SessionViewModel
+import com.mmb.session.ui.Session
 import com.mmb.setting.view.Setting
 import com.mmb.ui_compose.theme.PomodoroTheme
 
@@ -76,7 +83,17 @@ internal fun AppNavigation(
 
 private fun NavGraphBuilder.addClockScreen(navController: NavHostController) {
     composable(route = Screen.Clock.route) {
-        Clock(navigateToSettings = { navController.navigate(Screen.Settings.route) })
+        Column {
+            val sessionViewModel = hiltViewModel<SessionViewModel>()
+            val clockViewModel = hiltViewModel<PomodoroClockViewModel>()
+            Clock(
+                navigateToSettings = { navController.navigate(Screen.Settings.route) },
+                duration = sessionViewModel.sessionDuration.observeAsState(initial = 0).value,
+                viewModel = clockViewModel,
+                onTimerCompleted = sessionViewModel::onSessionCompleted
+            )
+            Session(sessionViewModel, modifier = Modifier.wrapContentSize())
+        }
     }
 }
 

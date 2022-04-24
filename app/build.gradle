@@ -52,6 +52,7 @@ dependencies {
     implementation project(":common:core")
     api project(":feature:setting")
     api project(":feature:clock")
+    api project(":feature:session")
 
     implementation libs.lifecycle.runtime
     implementation libs.ktx.core

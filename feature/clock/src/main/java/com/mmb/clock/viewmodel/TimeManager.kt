@@ -61,6 +61,7 @@ class TimeManager @Inject constructor() {
     private fun updateProgress(current: TimerState, session: TimerState): Float {
         val total = session.convertToSeconds()
         val remaining = total - current.convertToSeconds()
+        if (total == 0L) return 0f
         return remaining.toFloat() / total.toFloat()
     }
 

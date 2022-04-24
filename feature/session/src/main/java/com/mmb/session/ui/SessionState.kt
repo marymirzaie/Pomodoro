@@ -1,4 +1,4 @@
-package com.mmb.clock.entity
+package com.mmb.session.ui
 
 enum class SessionState {
     FOCUS,

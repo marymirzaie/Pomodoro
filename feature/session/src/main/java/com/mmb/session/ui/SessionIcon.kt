@@ -1,4 +1,4 @@
-package com.mmb.ui_compose.component.session
+package com.mmb.session.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size

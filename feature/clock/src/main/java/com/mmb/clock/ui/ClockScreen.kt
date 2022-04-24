@@ -15,25 +15,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.mmb.clock.R
 import com.mmb.clock.entity.PomodoroScreenEntity
-import com.mmb.clock.entity.SessionState
 import com.mmb.clock.viewmodel.PomodoroClockViewModel
 import com.mmb.ui_compose.Layout
 import com.mmb.ui_compose.component.pom.ControlButton
 import com.mmb.ui_compose.component.pom.PomodoroClock
 
 @Composable
-fun Clock(navigateToSettings: () -> Unit) {
-    val viewModel = hiltViewModel<PomodoroClockViewModel>()
-    Clock(viewModel = viewModel, navigateToSettings)
+fun Clock(
+    navigateToSettings: () -> Unit,
+    duration: Int,
+    viewModel: PomodoroClockViewModel,
+    onTimerCompleted: () -> Unit
+) {
+    viewModel.subscribe(duration)
+    Clock(viewModel = viewModel, navigateToSettings, onTimerCompleted)
 }
 
 @Composable
 internal fun Clock(
     viewModel: PomodoroClockViewModel,
-    navigateToSettings: () -> Unit
+    navigateToSettings: () -> Unit,
+    onTimerCompleted: () -> Unit
 ) {
     val timerState = viewModel.timer.observeAsState()
     val timerRunning = viewModel.timerRunning.observeAsState()
@@ -48,7 +52,7 @@ internal fun Clock(
             progress = progress.value ?: 0f,
         ),
         navigateToSettings,
-        viewModel::startTimer,
+        { viewModel.startTimer(onTimerCompleted) },
         viewModel::pauseTimer,
         viewModel::restartTimer,
         viewModel
@@ -66,7 +70,7 @@ fun PomScreen(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.wrapContentSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -100,12 +104,5 @@ fun PomScreen(
             modifier = Modifier.size(50.dp)
         )
         Spacer(modifier = Modifier.height(32.dp))
-        val sessionProgress = viewModel.completedPom.observeAsState(Pair(0, 0))
-
-        SessionProgress(
-            state = viewModel.sessionType.observeAsState(SessionState.FOCUS).value,
-            completed = viewModel.completedPom.observeAsState(1).value,
-            pomCount = viewModel.pomCount.collectAsState(0).value
-        )
     }
 }
