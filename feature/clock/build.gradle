@@ -49,6 +49,7 @@ dependencies {
     implementation libs.compose.preview
     debugImplementation libs.compse.tooling
     implementation libs.compose.material
+    implementation libs.compose.icon.extended
 
     implementation libs.compose.lifecycle
     implementation libs.compose.hilt.navigation

@@ -18,17 +18,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mmb.ui_compose.Layout.iconSize
 import com.mmb.ui_compose.R
-import com.mmb.ui_compose.component.pom.entity.ControlState
 
 @Composable
 fun ControlButton(
     modifier: Modifier = Modifier,
-    state: ControlState,
+    running: Boolean,
     onResumeClicked: () -> Unit,
     onRestartClicked: () -> Unit,
     onPauseClicked: () -> Unit,
 ) {
-    if (state is ControlState.Running) {
+    if (running) {
         Row {
             Icon(
                 imageVector = Icons.Filled.Pause,
@@ -63,6 +62,6 @@ fun ControlButton(
 @Preview
 @Composable
 fun PomodoroButtonPreview() {
-    ControlButton(state = ControlState.Running, onResumeClicked = {}, onRestartClicked = {},
+    ControlButton(running = true, onResumeClicked = {}, onRestartClicked = {},
         onPauseClicked = {})
 }

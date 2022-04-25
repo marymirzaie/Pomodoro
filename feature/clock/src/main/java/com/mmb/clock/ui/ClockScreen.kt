@@ -1,4 +1,4 @@
-package com.mmb.clock
+package com.mmb.clock.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,31 +13,34 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.mmb.clock.R
+import com.mmb.clock.entity.PomodoroScreenEntity
+import com.mmb.clock.viewmodel.PomodoroClockViewModel
 import com.mmb.ui_compose.Layout
 import com.mmb.ui_compose.component.pom.ControlButton
 import com.mmb.ui_compose.component.pom.PomodoroClock
-import com.mmb.ui_compose.component.pom.entity.ControlState
-import com.mmb.ui_compose.component.pom.entity.PomodoroScreenEntity
-import com.mmb.ui_compose.component.session.SessionProgress
-import com.mmb.ui_compose.component.session.SessionState
 
 @Composable
-fun Clock(navigateToSettings: () -> Unit) {
-    val viewModel = hiltViewModel<PomodoroClockViewModel>()
-    Clock(viewModel = viewModel, navigateToSettings)
+fun Clock(
+    navigateToSettings: () -> Unit,
+    duration: Int,
+    viewModel: PomodoroClockViewModel,
+    onTimerCompleted: () -> Unit
+) {
+    viewModel.subscribe(duration)
+    Clock(viewModel = viewModel, navigateToSettings, onTimerCompleted)
 }
 
 @Composable
 internal fun Clock(
     viewModel: PomodoroClockViewModel,
-    navigateToSettings: () -> Unit
+    navigateToSettings: () -> Unit,
+    onTimerCompleted: () -> Unit
 ) {
     val timerState = viewModel.timer.observeAsState()
-    val state = viewModel.buttonState.observeAsState()
+    val timerRunning = viewModel.timerRunning.observeAsState()
     val progress = viewModel.progress.observeAsState()
     PomScreen(
         PomodoroScreenEntity(
@@ -45,11 +48,14 @@ internal fun Clock(
             text = timerState.value?.toString() ?: "",
             numberOfPoms = 3,
             pomsCompleted = 2,
-            state = state.value ?: ControlState.Paused,
+            timerRunning = timerRunning.value ?: false,
             progress = progress.value ?: 0f,
-            onControlButtonClicked = viewModel::onButtonClicked
         ),
-        navigateToSettings
+        navigateToSettings,
+        { viewModel.startTimer(onTimerCompleted) },
+        viewModel::pauseTimer,
+        viewModel::restartTimer,
+        viewModel
     )
 }
 
@@ -57,10 +63,14 @@ internal fun Clock(
 fun PomScreen(
     entity: PomodoroScreenEntity,
     navigateToSettings: () -> Unit,
+    onStartClicked: () -> Unit,
+    onPauseClicked: () -> Unit,
+    onRestartClicked: () -> Unit,
+    viewModel: PomodoroClockViewModel,
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.wrapContentSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -86,35 +96,13 @@ fun PomScreen(
                     .aspectRatio(1f)
             )
         }
-        Text(
-            text = "4 of 4",
-            modifier = Modifier.padding(vertical = 16.dp),
-            fontSize = 20.sp
-        )
         ControlButton(
-            state = entity.state,
-            onResumeClicked = entity.onControlButtonClicked,
-            onRestartClicked = {},
-            onPauseClicked = entity.onControlButtonClicked,
+            running = entity.timerRunning,
+            onResumeClicked = onStartClicked,
+            onRestartClicked = onRestartClicked,
+            onPauseClicked = onPauseClicked,
             modifier = Modifier.size(50.dp)
         )
         Spacer(modifier = Modifier.height(32.dp))
-        SessionProgress(state = SessionState.FOCUS)
     }
-}
-
-@Composable
-@Preview
-fun PomScreenPreview() {
-    PomScreen(PomodoroScreenEntity(
-        "",
-        "12:00",
-        3,
-        2,
-        state = ControlState.Running,
-        progress = 100f
-    ) {}, {
-
-    }
-    )
 }

@@ -1,14 +1,13 @@
-package com.mmb.clock
+package com.mmb.clock.entity
 
 data class TimerState(
     val minutes: Long = 0,
-    val seconds: Long = 0,
-    val finish: Boolean = false,
+    val seconds: Long = 0
 ) {
 
     companion object {
-        const val SECOND_MILLS = 1000L
-        const val SECONDS_PER_MINUTE = 60000L
+        const val SECOND_MILLS = 100L
+        const val SECONDS_PER_MINUTE = 6000L
     }
 
     fun convertToSeconds(): Long {

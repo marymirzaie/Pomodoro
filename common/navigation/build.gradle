@@ -43,12 +43,24 @@ dependencies {
     implementation project(":common:ui-compose")
     implementation project(":feature:clock")
     implementation project(":feature:setting")
+    implementation project(":feature:session")
+    implementation project(":common:core")
 
     implementation libs.ktx.core
+
+    implementation libs.compose.lifecycle
+    implementation libs.compose.hilt.navigation
+    implementation libs.compose.runtime.livedata
+    implementation libs.hilt.core
+    kapt libs.hilt.compiler
 
     implementation libs.compose.core
     implementation libs.compose.navigation
     implementation libs.compose.material
     implementation libs.compose.icon.extended
     implementation libs.compose.preview
+}
+
+kapt {
+    correctErrorTypes true
 }

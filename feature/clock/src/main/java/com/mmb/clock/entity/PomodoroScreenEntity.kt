@@ -1,4 +1,4 @@
-package com.mmb.ui_compose.component.pom.entity
+package com.mmb.clock.entity
 
 data class PomodoroScreenEntity(
     val sessionName: String,
@@ -6,6 +6,5 @@ data class PomodoroScreenEntity(
     val numberOfPoms: Int,
     val pomsCompleted: Int,
     val progress: Float,
-    val state: ControlState,
-    val onControlButtonClicked: () -> Unit,
+    val timerRunning: Boolean,
 )
