@@ -15,7 +15,7 @@ Pomodoro is an app that attempts to use the latest cutting edge libraries and to
 ## License
 
 ```
-   Copyright [2022] [Mary Mirzaie]
+   Copyright 2022 Mary Mirzaie
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
