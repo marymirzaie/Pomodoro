@@ -25,7 +25,7 @@ maximum efficency for building and minimum coupling.
 
 ## License
 
-Designed with ❤️ by [Zohre Safarinia](zohrehsafarinia@gmail.com)
+UX Designed with ❤️ by [Zohre Safarinia](zohrehsafarinia@gmail.com)
 
 ```
 Copyright 2022 Mary Mirzaie
