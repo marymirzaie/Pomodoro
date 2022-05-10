@@ -3,7 +3,7 @@ Simple minimal pomodoro (Wrok-in-Progress) app to help being productive.
 
 ## App Screenshots
 
-![screenshots](https://ibb.co/hfkMBYR)
+<img src="https://raw.githubusercontent.com/marymirzaie/Pomodoro/main/asset/screenshot_pomodoro.png"/></br>
 
 ## Android development 
 
