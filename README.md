@@ -16,7 +16,16 @@ Pomodoro is an app that attempts to use the latest cutting edge libraries and to
  * Uses [Hilt](https://dagger.dev/hilt/) for dependency injection
  * Uses Clean architecture with modular and clean structure
 
+### ⚙️ Architecture
+
+<img src="https://raw.githubusercontent.com/marymirzaie/Pomodoro/main/asset/diagram_pomodoro.jpg"/></br>
+
+Pomodoro is designed with a modular structure to let us scale and develop new features in the fastest way possible. This architectre is designed to have
+maximum efficency for building and minimum coupling.
+
 ## License
+
+Designed with ❤️ by [Zohre Safarinia](zohrehsafarinia@gmail.com)
 
 ```
 Copyright 2022 Mary Mirzaie
