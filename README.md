@@ -1,6 +1,10 @@
 # Pomodoro (Wrok-in-Progress 👩‍💻🔧️)
 Simple minimal pomodoro (Wrok-in-Progress) app to help being productive.
 
+## App Screenshots
+
+![screenshots](https://ibb.co/hfkMBYR)
+
 ## Android development 
 
 Pomodoro is an app that attempts to use the latest cutting edge libraries and tools. As a summary:
