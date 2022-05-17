@@ -16,6 +16,8 @@ Pomodoro is an app that attempts to use the latest cutting edge libraries and to
  * Uses [Hilt](https://dagger.dev/hilt/) for dependency injection
  * Uses Clean architecture with modular and clean structure
 
+If you want to checkout closely on how the developing process is going, you can checkout the [roadmap](https://www.notion.so/05c3cecf44724375a13f805923fdbef9?v=d4125cd9305b4b37b8edc4a2ccfb7ace).
+
 ### ⚙️ Architecture
 
 <img src="https://raw.githubusercontent.com/marymirzaie/Pomodoro/main/asset/diagram_pomodoro.jpg"/></br>
