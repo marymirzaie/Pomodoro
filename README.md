@@ -1,5 +1,5 @@
 # Pomodoro (Wrok-in-Progress 👩‍💻🔧️)
-Simple minimal pomodoro (Wrok-in-Progress) app to help being productive.
+Simple minimal time management app (Wrok-in-Progress)  to help being productive.
 
 ## App Screenshots
 
