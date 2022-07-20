@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.1'
+        classpath "com.android.tools.build:gradle:$build.gradle"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$build.kotlinGradlePlugin"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$library.hilt"
         // NOTE: Do not place your application dependencies here; they belong
