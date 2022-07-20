@@ -1,9 +1,10 @@
 ext {
 
     build = [
-            compileSdkVersion : 31,
+            compileSdkVersion : 32,
+            gradle            : "7.0.4",
             buildToolsVersion : "31.0.0",
-            targetSdkVersion  : 31,
+            targetSdkVersion  : 32,
             minSdkVersion     : 21,
             kotlinGradlePlugin: "1.6.10"
     ]
