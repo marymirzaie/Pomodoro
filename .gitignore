@@ -52,3 +52,4 @@ app/production
 app/release
 app/captures
 captures
+*/build/
