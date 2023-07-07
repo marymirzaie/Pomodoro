@@ -4,7 +4,6 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
-    enableFeaturePreview("VERSION_CATALOGS")
     versionCatalogs {
         create("libs") {
             from(files("./gradle/wrapper/libs.versions.toml"))
