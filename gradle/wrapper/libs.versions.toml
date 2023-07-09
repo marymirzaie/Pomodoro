@@ -17,7 +17,7 @@ materialVersion = "1.5.0"
 compose = "1.4.3"
 composeLifecycle = "2.5.1"
 composeHiltNavigation = "1.0.0-alpha03"
-compseNavigation = "2.4.0-alpha09"
+compseNavigation = "2.5.3"
 #test
 mockito = "4.5.0"
 mockitoKotlin = "3.2.0"

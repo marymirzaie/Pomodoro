@@ -18,7 +18,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mmb.clock.ui.Clock
 import com.mmb.clock.viewmodel.PomodoroClockViewModel
@@ -54,10 +53,6 @@ fun PomodoroAppNavigation() {
     isSystemInDarkTheme()
     PomodoroTheme(darkTheme = isSystemInDarkTheme()) {
         val navController = rememberNavController()
-        val backStackEntry = navController.currentBackStackEntryAsState()
-        val onTabSelected = { screen: Screen ->
-            navController.navigate(screen.route)
-        }
 
         Scaffold() { innerPadding ->
             AppNavigation(navController, Modifier.padding(innerPadding))
